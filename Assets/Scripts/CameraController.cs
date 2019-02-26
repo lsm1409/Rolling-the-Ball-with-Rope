@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
 {
     public GameObject _ball; // 카메라가 쫒아다닐 오브젝트 공
     public float _moveSpeed = 10.0f; // 카메라가 움직이는 속도
-    public float _fieldOfView; // 카메라의 기본 field of view
+    public float _fieldOfView = 50.0f; // 카메라의 기본 field of view
     public float _maxFieldOfView = 70.0f;   // 카메라의 최대 field of view
     public static int offsetNum;
     public static bool isForward;
@@ -26,19 +26,6 @@ public class CameraController : MonoBehaviour
     private Vector3[] cameraReversePositions = { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) };
     private Vector3[] cameraRotations = { new Vector3(0, 0, 0), new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
 
-    // 모바일 환경에서 게임 화면 방향과 프레임레이트 지정을 위해 ... (이 스크립트에 들어갈 내용인지는 모르겠네요 ...)
-    private void Awake()
-    {
-        Screen.orientation = ScreenOrientation.LandscapeLeft;   // 홈버튼이 오른쪽으로 오는 가로방향을 기본으로 설정
-        // 가로방향 회전 허용,  세로방향 회전 불가
-        Screen.autorotateToLandscapeLeft = true;
-        Screen.autorotateToLandscapeRight = true;
-        Screen.autorotateToPortrait = false;
-        Screen.autorotateToPortraitUpsideDown = false;
-
-        // 프레임레이트를 60으로 설정
-        Application.targetFrameRate = 60;
-    }
 
     private void Start()
     {
