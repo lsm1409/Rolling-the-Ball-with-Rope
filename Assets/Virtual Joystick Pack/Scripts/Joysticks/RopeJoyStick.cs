@@ -16,9 +16,9 @@ public class RopeJoyStick : Joystick
     // 조이스틱 핸들을 가운데에 위치한 상태에서 Button Up하면 점프
     // 조이스틱 핸들을 가장자리로 Drag한 상태로 두면 조준 상태
     // 조이스틕 핸들을 가장자리 위치에서 Button Up하면 로프 발사 
-    [HideInInspector] public bool _isJumped = false;
-    [HideInInspector] public bool _isAimed = false;
-    [HideInInspector] public bool _isShot = false;
+    [HideInInspector] public bool isJumped;
+    [HideInInspector] public bool isAimed;
+    [HideInInspector] public bool isShot;
 
     Vector2 joystickCenter = Vector2.zero;
 
@@ -29,22 +29,19 @@ public class RopeJoyStick : Joystick
 
     private void Update()
     {
-        // 가운데 Button Up하여 점프가 입력되면 10 프레임 뒤에 _isJumped를 false로 변경
-        if (_isJumped)
+        // 가운데 Button Up하여 점프가 입력되면 10 프레임 뒤에 isJumped를 false로 변경
+        if (isJumped)
             Invoke("DoNotJump", Time.deltaTime * 10);
-        // 가장자리 Button Up하여 로프를 발사하면 한 프레임 뒤에 다시 _isShot을 false로 변경
-        if (_isShot)
-            Invoke("DoNotShot", Time.deltaTime);
+        // 가장자리 Button Up하여 로프를 발사하면 한 프레임 뒤에 다시 isShot을 false로 변경
+        if (isShot)
+            Invoke("DoNotShoot", Time.deltaTime);
     }
 
     // 조이스틱 핸들을 드래그할 때
     public override void OnDrag(PointerEventData eventData)
     {
         // 조이스틱 핸들을 0.5 이상 이동시켰다면 로프 조준
-        if (inputVector.magnitude >= 0.5f)
-            _isAimed = true;
-        else
-            _isAimed = false;
+        isAimed = inputVector.magnitude >= 0.5f ? true : false;
 
         Vector2 direction = eventData.position - joystickCenter;
         inputVector = (direction.magnitude > background.sizeDelta.x / 2f) ? direction.normalized : direction / (background.sizeDelta.x / 2f);
@@ -67,12 +64,12 @@ public class RopeJoyStick : Joystick
         // 조이스틱 핸들을 0.5 이상 이동시킨 상태에서 손을 뗐다면 로프 발사
         if (inputVector.magnitude >= 0.5f)
         {
-            _isShot = true;
-            _isAimed = false;
+            isShot = true;
+            isAimed = false;
         }
         // 조이스틱 핸들을 0.5 미만 이동시킨 상태에서 손을 뗐다면 점프 입력
         else
-            _isJumped = true;
+            isJumped = true;
 
         background.gameObject.SetActive(false);
         inputVector = Vector2.zero;
@@ -81,10 +78,10 @@ public class RopeJoyStick : Joystick
     // 조이스틱 조작으로 true가 된 필드를 다음 프레임에서 다시 false로 변경하기 위한 함수들
     private void DoNotJump()
     {
-        _isJumped = false;
+        isJumped = false;
     }
-    private void DoNotShot()
+    private void DoNotShoot()
     {
-        _isShot = false;
+        isShot = false;
     }
 }
