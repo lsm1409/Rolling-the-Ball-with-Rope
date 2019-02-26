@@ -101,12 +101,11 @@ public class PlayerController : MonoBehaviour
         // -- 로프 비연결 상태 --
         else
         {
-            RaycastHit ropeHit;    // 로프가 닿은 오브젝트의 정보
             // (로프가 벽에 걸리는 조건)
             // 공 위치에서 로프 조이스틱 방향으로 로프 최대길이만큼 Raycasting 했을 때 Collider를 갖는 오브젝트가 감지되고,
             // Rigidbody 컴포넌트를 가지고 있으며,
             // Ray가 닿은 표면의 normal 벡터가 +y 방향이 아닐 때 ... (로프를 -y 방향으로 못 쏘게 하기 위해)
-            bool canRopeSet = Physics.Raycast(this.transform.position, ropeDirection, out ropeHit, MaxRopeLength) && ropeHit.rigidbody != null && ropeHit.normal != Vector3.up;
+            bool canRopeSet = Physics.Raycast(this.transform.position, ropeDirection, out RaycastHit ropeHit, MaxRopeLength) && ropeHit.rigidbody != null && ropeHit.normal != Vector3.up;
 
             // -- 로프 조준 --
             if (isRopeAimed)
