@@ -11,12 +11,12 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public float JumpPower = 1.5f; // 공 점프시 가하는 힘
-    public float MovePower = 20.0f; // 공 이동시 가하는 힘
-    public float MaxVelocity = 18.0f; // 공의 최고속도 (공이 이 속도 이하일 때만 힘을 가한다.)
-    public float MaxAngularVelocity = 30.0f; // 공의 최고 각속도 (공이 공 중심 기준으로 회전하는 최고 속도)
-    public float GroundRayLength = 1.0f; // 공이 땅에 붙어있는지 체크하기 위해 공 중심으로부터 -y방향으로 재는 거리
-    public float MaxRopeLength = 25.0f; // 로프가 발사되는 최대 길이
+    public float JumpPower; // 공 점프시 가하는 힘
+    public float MovePower; // 공 이동시 가하는 힘
+    public float MaxVelocity; // 공의 최고속도 (공이 이 속도 이하일 때만 힘을 가한다.)
+    public float MaxAngularVelocity; // 공의 최고 각속도 (공이 공 중심 기준으로 회전하는 최고 속도)
+    public float GroundRayLength; // 공이 땅에 붙어있는지 체크하기 위해 공 중심으로부터 -y방향으로 재는 거리
+    public float MaxRopeLength; // 로프가 발사되는 최대 길이
 
     private new Rigidbody rigidbody;   // 공의 rigidbody 컴포넌트를 담는 필드
     private LineRenderer line; // 로프를 표현하는 LineRenderer 컴포넌트를 담는 필드
@@ -27,13 +27,10 @@ public class PlayerController : MonoBehaviour
     private bool isJumpPressed; // 공의 점프가 입력되면 true
     private bool isRopeAimed;  // 로프 조준이 입력되면 true
     private bool isRopeShot;    // 로프 발사가 입력되면 true
-    private bool isConnected = false;   // 공이 로프와 연결되어있는지 여부
+    private bool isConnected;   // 공이 로프와 연결되면 true
     private HingeJoint rope;   // 로프의 joint 정보 (로프가 걸리는 위치, 로프의 길이, 진자 운동 방향, 진자 운동 각도 등)
-    private RaycastHit ropeHit;    // 로프가 닿은 오브젝트의 정보
     private Texture dottedLine;    // 로프의 점선 텍스쳐
 
-
-    // Start is called before the first frame update
     private void Start()
     {
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
@@ -47,12 +44,11 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody>().maxAngularVelocity = MaxAngularVelocity; // 공의 최대 각속도를 지정한 속도로 적용한다.
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        isJumpPressed = ropeJoystick._isJumped; // 로프 조이스틱에서 점프 키를 눌렸는지 여부를 가져온다.
-        isRopeAimed = ropeJoystick._isAimed; // 로프 조이스틱이 조준 상태인지 여부를 가져온다.
-        isRopeShot = ropeJoystick._isShot;    // 로프 조이스틱에서 로프 발사가 입력되었는지 여부를 가져온다.
+        isJumpPressed = ropeJoystick.isJumped; // 로프 조이스틱에서 점프 키를 눌렸는지 여부를 가져온다.
+        isRopeAimed = ropeJoystick.isAimed; // 로프 조이스틱이 조준 상태인지 여부를 가져온다.
+        isRopeShot = ropeJoystick.isShot;    // 로프 조이스틱에서 로프 발사가 입력되었는지 여부를 가져온다.
 
         // 메인 카메라가 바라보는 방향을 기준으로 하여 공의 이동방향을 결정한다.
         moveDirection = (moveJoystick.Vertical * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + moveJoystick.Horizontal * Camera.main.transform.right).normalized;
@@ -79,8 +75,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // -- 로프 연결 상태 -- //
-        if (isConnected)    // 로프 연결 상태라면 ...
+        // -- 로프 연결 상태 --
+        if (isConnected)
         {
             // ... 로프를 시각적으로 그리기 위해 LineRenderer 컴포넌트를 설정한다. (실선)
             line.enabled = true;   // 컴포넌트를 활성화한다.
@@ -94,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
             rope.anchor = Vector3.Lerp(rope.anchor, new Vector3(0, 0, 0), Time.deltaTime);    // anchor 값을 조정하여 로프가 시간에 따라 서서히 줄어들게 한다. (Lerp를 이용해서 기존 anchor -> (0, 0, 0) 으로)
 
-            // ... 로프 연결 상태에서 점프 키가 눌리면 ...
+            // -- 로프 연결 상태에서 점프 입력 --
             if (isJumpPressed)
             {
                 // ... 연결 상태를 해제하고 로프를 표현하는 HingeJoint 컴포넌트를 없앤다. (비활성화 불가)
@@ -102,10 +98,17 @@ public class PlayerController : MonoBehaviour
                 Destroy(rope);
             }
         }
+        // -- 로프 비연결 상태 --
         else
         {
-            // -- 로프 조준 -- //
-            // 공이 로프에 연결되어 있지 않은 상태에서 로프 조준을 하면 ...
+            RaycastHit ropeHit;    // 로프가 닿은 오브젝트의 정보
+            // (로프가 벽에 걸리는 조건)
+            // 공 위치에서 로프 조이스틱 방향으로 로프 최대길이만큼 Raycasting 했을 때 Collider를 갖는 오브젝트가 감지되고,
+            // Rigidbody 컴포넌트를 가지고 있으며,
+            // Ray가 닿은 표면의 normal 벡터가 +y 방향이 아닐 때 ... (로프를 -y 방향으로 못 쏘게 하기 위해)
+            bool canRopeSet = Physics.Raycast(this.transform.position, ropeDirection, out ropeHit, MaxRopeLength) && ropeHit.rigidbody != null && ropeHit.normal != Vector3.up;
+
+            // -- 로프 조준 --
             if (isRopeAimed)
             {
                 // ... 로프 조이스틱의 방향을 가져온다. (이 방향으로 로프를 조준하고 발사한다.)
@@ -119,85 +122,73 @@ public class PlayerController : MonoBehaviour
                 line.startWidth = 0.1f;    // 선의 시작지점 두께
                 line.endWidth = 0.1f;  // 선의 끝지점 두께
 
-                // (로프가 벽에 걸리는 조건)
-                // 공 위치에서 로프 조이스틱 방향으로 로프 최대길이만큼 Raycasting 했을 때 Collider를 갖는 오브젝트가 감지되고,
-                // Rigidibody 컴포넌트를 가지고 있으며,
-                // Ray가 닿은 표면의 normal 벡터가 +y 방향이 아닐 때 ... (로프를 -y 방향으로 못 쏘게 하기 위해)
-                if (Physics.Raycast(this.transform.position, ropeDirection, out ropeHit, MaxRopeLength) && ropeHit.rigidbody != null && ropeHit.normal != Vector3.up)
+                // 로프가 걸릴 수 있는 조건 판단 후 점선 색 지정
+                if (canRopeSet)
                 {
-                    // ... 로프가 걸릴 수 있는 조건이면 초록색 점선
                     line.startColor = Color.green;
                     line.endColor = Color.green;
                 }
                 else
                 {
-                    // ... 로프가 걸릴 수 없는 조건이면 빨간색 점선
                     line.startColor = Color.red;
                     line.endColor = Color.red;
                 }
             }
-            else // 로프 연결 상태도 아니고, 조준하고 있는 상황도 아니라면 ... (점선 및 실선이 그려질 필요가 없을 때)
+            // -- 로프 조준 상태가 아님 -- (점선 및 실선이 그려질 필요가 없을 때)
+            else
             {
                 // ... LineRenderder 컴포넌트 비활성화
                 line.enabled = false;
             }
 
             // -- 로프 발사 -- //
-            // 공이 로프에 연결되어 있지 않은 상태에서 로프 발사를 하면 ...
-            if (isRopeShot)
+            if (isRopeShot && canRopeSet)
             {
-                // (로프가 벽에 걸리는 조건)
-                // 공 위치에서 로프 조이스틱 방향으로 로프 최대길이만큼 Raycasting 했을 때 Collider를 갖는 오브젝트가 감지되고,
-                // Rigidibody 컴포넌트를 가지고 있으며,
-                // Ray가 닿은 표면의 normal 벡터가 +y 방향이 아닐 때 ... (로프를 -y 방향으로 못 쏘게 하기 위해)
-                if (Physics.Raycast(this.transform.position, ropeDirection, out ropeHit, MaxRopeLength) && ropeHit.rigidbody != null && ropeHit.normal != Vector3.up)
+                // ... Raycasting하여 닿은 물체의 정보가 ropeHit에 저장된다. 여기서 Ray가 로프라고 보면 된다.
+                // ... 로프에 매달리는 효과를 내기 위해 HingeJoint 컴포넌트를 스크립트 상에서 동적 생성한다.
+                rope = this.gameObject.AddComponent<HingeJoint>(); // HingeJoint 컴포넌트를 추가하고 그 컴포넌트를 반환받아 객체 rope에 저장한다. rope를 이용해 컴포넌트에 접근/설정 한다.
+                rope.connectedBody = ropeHit.rigidbody;   // 로프가 닿은 오브젝트의 rigidbody를 연결한다.
+                rope.anchor = transform.InverseTransformPoint(ropeHit.point); // anchor는 공의 위치부터 로프가 닿은 지점까지의 벡터, 즉 로프의 길이이다. 로프가 닿은 위치를 공의 local 좌표로 바꿔 적용한다.
+                rope.axis = this.transform.InverseTransformVector(Vector3.forward);    // axis는 진자 운동 방향의 중심축이다.(공의 local 좌표계) 'world 좌표계의 z축 중심 회전' 방향으로 진자 운동 해야 한다.(왼손 법칙)
+                rope.autoConfigureConnectedAnchor = false; // 로프가 걸리는 위치를 자동으로 계산하는 걸 막는다.
+                rope.connectedAnchor = rope.connectedBody.transform.InverseTransformPoint(ropeHit.point); // connectedAnchor는 로프가 걸리는 위치이다. (로프가 연결된 오브젝트의 local 좌표계)
+                rope.enableCollision = true; // 로프로 연결된 오브젝트와의 충돌 허용
+
+                // 로프가 걸린 표면에 따라 진자 운동 각도를 제한하기 위해 JointLimits 객체를 만들어 적용한다.
+                JointLimits jointLimits = rope.limits; // 기존 limits 값을 가져온다.
+                                                       // 로프가 걸린 표면의 normal 벡터의 방향에 따라 진자 운동 허용 각도를 계산한다.
+
+                if (ropeHit.normal == Vector3.down)
                 {
-                    // ... Raycasting하여 닿은 물체의 정보가 ropeHit에 저장된다. 여기서 Ray가 로프라고 보면 된다.
-                    // ... 로프에 매달리는 효과를 내기 위해 HingeJoint 컴포넌트를 스크립트 상에서 동적 생성한다.
-                    rope = this.gameObject.AddComponent<HingeJoint>(); // HingeJoint 컴포넌트를 추가하고 그 컴포넌트를 반환받아 객체 rope에 저장한다. rope를 이용해 컴포넌트에 접근/설정 한다.
-                    rope.connectedBody = ropeHit.rigidbody;   // 로프가 닿은 오브젝트의 rigidbody를 연결한다.
-                    rope.anchor = transform.InverseTransformPoint(ropeHit.point); // anchor는 공의 위치부터 로프가 닿은 지점까지의 벡터, 즉 로프의 길이이다. 로프가 닿은 위치를 공의 local 좌표로 바꿔 적용한다.
-                    rope.axis = this.transform.InverseTransformVector(Vector3.forward);    // axis는 진자 운동 방향의 중심축이다.(공의 local 좌표계) 'world 좌표계의 z축 중심 회전' 방향으로 진자 운동 해야 한다.(왼손 법칙)
-                    rope.autoConfigureConnectedAnchor = false; // 로프가 걸리는 위치를 자동으로 계산하는 걸 막는다.
-                    rope.connectedAnchor = rope.connectedBody.transform.InverseTransformPoint(ropeHit.point); // connectedAnchor는 로프가 걸리는 위치이다. (로프가 연결된 오브젝트의 local 좌표계)
-                    rope.enableCollision = true; // 로프로 연결된 오브젝트와의 충돌 허용
-
-                    // 로프가 걸린 표면에 따라 진자 운동 각도를 제한하기 위해 JointLimits 객체를 만들어 적용한다.
-                    JointLimits jointLimits = rope.limits; // 기존 limits 값을 가져온다.
-                                                           // 로프가 걸린 표면의 normal 벡터의 방향에 따라 진자 운동 허용 각도를 계산한다.
-                    if (ropeHit.normal == Vector3.down)
-                    {
-                        // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
-                        float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
-                        // 계산한 값 이용하여 최소각, 최대각 지정
-                        jointLimits.min = -hitAngle;
-                        jointLimits.max = 180 - hitAngle;
-                    }
-                    else if (ropeHit.normal == Vector3.left)
-                    {
-                        // hitAngle = arccos(공과 로프가 걸린 지점의 y축(세로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
-                        float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.y - this.transform.position.y) / Vector3.Distance(this.transform.position, ropeHit.point));
-                        // 계산한 값 이용하여 최소각, 최대각 지정
-                        jointLimits.min = hitAngle - 180;
-                        jointLimits.max = hitAngle;
-                    }
-                    else if (ropeHit.normal == Vector3.right)
-                    {
-                        // hitAngle = arccos(공과 로프가 걸린 지점의 y축(세로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
-                        float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.y - this.transform.position.y) / Vector3.Distance(this.transform.position, ropeHit.point));
-                        // 계산한 값 이용하여 최소각, 최대각 지정
-                        jointLimits.min = -hitAngle;
-                        jointLimits.max = 180 - hitAngle;
-                    }
-                    // 값 수정한 jointLimits를 적용하고 각도 제한을 허용한다.
-                    rope.limits = jointLimits;
-                    rope.useLimits = true;
-
-                    // 로프 연결 상태로 변경
-                    isConnected = true;
+                    // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                    float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
+                    // 계산한 값 이용하여 최소각, 최대각 지정
+                    jointLimits.min = -hitAngle;
+                    jointLimits.max = 180 - hitAngle;
                 }
-            }
+                else if (ropeHit.normal == Vector3.left)
+                {
+                    // hitAngle = arccos(공과 로프가 걸린 지점의 y축(세로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                    float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.y - this.transform.position.y) / Vector3.Distance(this.transform.position, ropeHit.point));
+                    // 계산한 값 이용하여 최소각, 최대각 지정
+                    jointLimits.min = hitAngle - 180;
+                    jointLimits.max = hitAngle;
+                }
+                else if (ropeHit.normal == Vector3.right)
+                {
+                    // hitAngle = arccos(공과 로프가 걸린 지점의 y축(세로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                    float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.y - this.transform.position.y) / Vector3.Distance(this.transform.position, ropeHit.point));
+                    // 계산한 값 이용하여 최소각, 최대각 지정
+                    jointLimits.min = -hitAngle;
+                    jointLimits.max = 180 - hitAngle;
+                }
+                // 값 수정한 jointLimits를 적용하고 각도 제한을 허용한다.
+                rope.limits = jointLimits;
+                rope.useLimits = true;
 
+                // 로프 연결 상태로 변경
+                isConnected = true;
+            }
         }
 
         // -- 게임 오버 -- //
@@ -228,10 +219,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
-                break;
-            case "GameOver":
-                UIController.GameOver = true;
-                Destroy(other.gameObject);
                 break;
             case "Death":
                 transform.position = GameObject.FindWithTag("Respawn").transform.position;
