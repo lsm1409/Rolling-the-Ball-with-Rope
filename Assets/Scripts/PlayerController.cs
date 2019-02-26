@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public float GroundRayLength = 1.0f; // 공이 땅에 붙어있는지 체크하기 위해 공 중심으로부터 -y방향으로 재는 거리
     public float MaxRopeLength = 25.0f; // 로프가 발사되는 최대 길이
 
-    private Rigidbody rigidBody;   // 공의 rigidbody 컴포넌트를 담는 필드
+    private new Rigidbody rigidbody;   // 공의 rigidbody 컴포넌트를 담는 필드
     private LineRenderer line; // 로프를 표현하는 LineRenderer 컴포넌트를 담는 필드
     private Joystick moveJoystick; // 공 이동을 조작하는 조이스틱 객체
     private RopeJoyStick ropeJoystick; // 로프를 조작하는 조이스틱 객체
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
         ropeJoystick = FindObjectOfType<RopeJoyStick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
 
-        rigidBody = GetComponent<Rigidbody>(); // 공의 Rigidbody 컴포넌트를 가져온다.
+        rigidbody = GetComponent<Rigidbody>(); // 공의 rigidbody 컴포넌트를 가져온다.
         line = GetComponent<LineRenderer>();   // 공의 LineRenderer 컴포넌트를 가져온다.
 
         dottedLine = line.material.mainTexture;   // 로프 머티리얼에 적용된 점선 텍스쳐를 저장해둔다.
@@ -65,17 +65,17 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(this.transform.position, Vector3.down, GroundRayLength))
         {
             // 최대 제한 속도 안에서 ...
-            if (rigidBody.velocity.magnitude <= MaxVelocity)
+            if (rigidbody.velocity.magnitude <= MaxVelocity)
             {
                 // 입력받은 공의 이동방향으로 공에게 힘을 가한다.
-                rigidBody.AddForce(moveDirection * MovePower);
+                rigidbody.AddForce(moveDirection * MovePower);
             }
 
             // 점프 키가 눌리면 ...
             if (isJumpPressed)
             {
                 // ... +y 방향으로 순간적인 힘을 가한다.
-                rigidBody.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
             }
         }
 
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
                 // ... Raycasting하여 닿은 물체의 정보가 ropeHit에 저장된다. 여기서 Ray가 로프라고 보면 된다.
                 // ... 로프에 매달리는 효과를 내기 위해 HingeJoint 컴포넌트를 스크립트 상에서 동적 생성한다.
                 rope = this.gameObject.AddComponent<HingeJoint>(); // HingeJoint 컴포넌트를 추가하고 그 컴포넌트를 반환받아 객체 rope에 저장한다. rope를 이용해 컴포넌트에 접근/설정 한다.
-                rope.connectedBody = ropeHit.rigidbody;   // 로프가 닿은 오브젝트의 Rigidbody를 연결한다.
+                rope.connectedBody = ropeHit.rigidbody;   // 로프가 닿은 오브젝트의 rigidbody를 연결한다.
                 rope.anchor = transform.InverseTransformPoint(ropeHit.point); // anchor는 공의 위치부터 로프가 닿은 지점까지의 벡터, 즉 로프의 길이이다. 로프가 닿은 위치를 공의 local 좌표로 바꿔 적용한다.
                 rope.axis = this.transform.InverseTransformVector(Vector3.forward);    // axis는 진자 운동 방향의 중심축이다.(공의 local 좌표계) 'world 좌표계의 z축 중심 회전' 방향으로 진자 운동 해야 한다.(왼손 법칙)
                 rope.autoConfigureConnectedAnchor = false; // 로프가 걸리는 위치를 자동으로 계산하는 걸 막는다.
@@ -203,14 +203,14 @@ public class PlayerController : MonoBehaviour
         {
             // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
             this.gameObject.SetActive(false);
-            UIController.gameOver = true;
+            UIController.GameOver = true;
         }
         // 공의 y 위치가 -20보다 작을 때 ... -> 공의 낙하로 판단
         if (this.transform.position.y < -20)
         {
             // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
             this.gameObject.SetActive(false);
-            UIController.gameOver = true;
+            UIController.GameOver = true;
         }
     }
 
@@ -224,35 +224,35 @@ public class PlayerController : MonoBehaviour
                 Destroy(other.gameObject);
                 break;
             case "Up":
-                this.rigidBody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
+                this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
                 break;
             case "GameOver":
-                UIController.gameOver = true;
+                UIController.GameOver = true;
                 Destroy(other.gameObject);
                 break;
             case "Death":
                 transform.position = GameObject.FindWithTag("Respawn").transform.position;
-                rigidBody.velocity = Vector3.zero;
-                rigidBody.angularVelocity = Vector3.zero;
+                rigidbody.velocity = Vector3.zero;
+                rigidbody.angularVelocity = Vector3.zero;
                 break;
             case "Finish":
-                rigidBody.constraints = RigidbodyConstraints.FreezeAll;
-                UIController.gameOver = true;
+                rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                UIController.GameOver = true;
                 break;
             case "FreezeAll":
-                rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+                rigidbody.constraints = RigidbodyConstraints.FreezeAll;
                 break;
             case "FreezeX":
-                rigidBody.constraints = RigidbodyConstraints.FreezePositionX;
+                rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
                 break;
             case "FreezeY":
-                rigidBody.constraints = RigidbodyConstraints.FreezePositionY;
+                rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
                 break;
             case "FreezeZ":
-                rigidBody.constraints = RigidbodyConstraints.FreezePositionZ;
+                rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
                 break;
             case "FreezeNone":
-                rigidBody.constraints = RigidbodyConstraints.None;
+                rigidbody.constraints = RigidbodyConstraints.None;
                 break;
             case "RotateL":
                 CameraController.offsetNum = (--offsetNum + 4) % 4;
