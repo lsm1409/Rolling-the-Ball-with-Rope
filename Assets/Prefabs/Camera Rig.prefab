@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9ef9f0a58beee4babeae8c981e0000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ball: {fileID: 0}
-  _moveSpeed: 10
-  _fieldOfView: 50
-  _maxFieldOfView: 70
+  Player: {fileID: 0}
+  CameraSpeed: 10
+  FieldOfView: 50
+  MaxFieldOfView: 70
