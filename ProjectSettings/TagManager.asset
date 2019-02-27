@@ -11,6 +11,8 @@ TagManager:
   - FreezeX
   - FreezeY
   - FreezeZ
+  - Coin
+  - BonusCoin
   layers:
   - Default
   - TransparentFX
