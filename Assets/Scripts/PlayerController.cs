@@ -190,20 +190,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // -- 게임 오버 -- //
-        // 공 중심에서 +y 방향으로 Raycasting한 거리가 공의 반지름보다 작다면 (공의 반지름 = 0.5, 기준 거리 =  0.35) ... (물체가 공의 y축 방향으로 공을 누른다면 ...)
-        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f))
+        // -- 공의 사망 -- //
+        // 공이 압사하거나 추락사하면 지정된 리스폰 포인트에서 부활
+        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
         {
-            // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
-            this.gameObject.SetActive(false);
-            UIController.GameOver = true;
-        }
-        // 공의 y 위치가 -20보다 작을 때 ... -> 공의 낙하로 판단
-        if (this.transform.position.y < -20)
-        {
-            // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
-            this.gameObject.SetActive(false);
-            UIController.GameOver = true;
+            transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
     }
 
@@ -218,11 +211,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
-                break;
-            case "Death":
-                transform.position = GameObject.FindWithTag("Respawn").transform.position;
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.angularVelocity = Vector3.zero;
                 break;
             case "Finish":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
@@ -255,6 +243,11 @@ public class PlayerController : MonoBehaviour
             case "Backward":
                 CameraController.isForward = false;
                 break;
+        }
+
+        if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
+        {
+            GameDirector.RespawnPoint++;
         }
     }
 }

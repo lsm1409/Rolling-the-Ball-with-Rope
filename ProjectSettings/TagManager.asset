@@ -6,11 +6,13 @@ TagManager:
   tags:
   - RotateL
   - RotateR
-  - Forward
-  - Reverse
   - FreezeX
   - FreezeY
   - FreezeZ
+  - Forward
+  - Backward
+  - Respawn0
+  - Respawn1
   layers:
   - Default
   - TransparentFX
