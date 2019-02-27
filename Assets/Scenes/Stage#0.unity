@@ -351,6 +351,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1187653914}
     m_Modifications:
+    - target: {fileID: 943863726, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
+      propertyPath: m_Name
+      value: Floating Joystick (Move)
+      objectReference: {fileID: 0}
     - target: {fileID: 224250993973611384, guid: cdd5474b97f1a9d40bea678ca8dec2bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -431,10 +435,6 @@ PrefabInstance:
         type: 3}
       propertyPath: handleLimit
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 943863726, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
-      propertyPath: m_Name
-      value: Floating Joystick (Move)
       objectReference: {fileID: 0}
     - target: {fileID: 943863727, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
       propertyPath: m_LocalPosition.x
