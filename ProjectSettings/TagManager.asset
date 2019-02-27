@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - RotateL
+  - RotateR
+  - Forward
+  - Reverse
+  - FreezeX
+  - FreezeY
+  - FreezeZ
   layers:
   - Default
   - TransparentFX
