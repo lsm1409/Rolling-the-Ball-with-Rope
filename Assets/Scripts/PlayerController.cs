@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private HingeJoint rope;   // 로프의 joint 정보 (로프가 걸리는 위치, 로프의 길이, 진자 운동 방향, 진자 운동 각도 등)
     private Texture dottedLine;    // 로프의 점선 텍스쳐
 
+    private Vector3 moveDirectionKey;
+
     private void Start()
     {
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
@@ -50,8 +52,12 @@ public class PlayerController : MonoBehaviour
         isRopeAimed = ropeJoystick.isAimed; // 로프 조이스틱이 조준 상태인지 여부를 가져온다.
         isRopeShot = ropeJoystick.isShot;    // 로프 조이스틱에서 로프 발사가 입력되었는지 여부를 가져온다.
 
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
         // 메인 카메라가 바라보는 방향을 기준으로 하여 공의 이동방향을 결정한다.
         moveDirection = (moveJoystick.Vertical * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + moveJoystick.Horizontal * Camera.main.transform.right).normalized;
+
+        moveDirectionKey = (v * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + h * Camera.main.transform.right).normalized;
     }
 
     private void FixedUpdate()
@@ -65,6 +71,8 @@ public class PlayerController : MonoBehaviour
             {
                 // 입력받은 공의 이동방향으로 공에게 힘을 가한다.
                 rigidbody.AddForce(moveDirection * MovePower);
+
+                rigidbody.AddForce(moveDirectionKey * MovePower);
             }
 
             // 점프 키가 눌리면 ...
