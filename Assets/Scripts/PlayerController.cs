@@ -217,6 +217,10 @@ public class PlayerController : MonoBehaviour
             case "Coin":
                 Destroy(other.gameObject);
                 break;
+            case "BonusCoin":
+                Destroy(other.gameObject);
+                UIController.GameOver = true;
+                break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
                 break;
@@ -253,6 +257,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        // 리스폰 포인트 갱신
         if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
         {
             GameDirector.RespawnPoint++;
