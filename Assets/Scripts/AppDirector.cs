@@ -6,7 +6,7 @@
 /// </summary>
 /// 
 /// 
-public class AppController : MonoBehaviour
+public class AppDirector : MonoBehaviour
 {
     private void Awake()
     {
