@@ -5,6 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - RotateL
+  - RotateR
+  - FreezeX
+  - FreezeY
+  - FreezeZ
+  - Forward
+  - Backward
+  - Coin
+  - BonusCoin
+  - Respawn0
+  - Respawn1
   layers:
   - Default
   - TransparentFX

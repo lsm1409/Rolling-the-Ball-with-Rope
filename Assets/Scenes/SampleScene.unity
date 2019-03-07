@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -459,6 +459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1187653914}
     m_Modifications:
+    - target: {fileID: 943863726, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
+      propertyPath: m_Name
+      value: Floating Joystick (Move)
+      objectReference: {fileID: 0}
     - target: {fileID: 224250993973611384, guid: cdd5474b97f1a9d40bea678ca8dec2bb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -539,10 +543,6 @@ PrefabInstance:
         type: 3}
       propertyPath: handleLimit
       value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 943863726, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
-      propertyPath: m_Name
-      value: Floating Joystick (Move)
       objectReference: {fileID: 0}
     - target: {fileID: 943863727, guid: 846e603db297c476c992688b3ec4ab52, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1118,6 +1118,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: JumpPower
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: MaxRopeLength
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: MovePower
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: MaxVelocity
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: MaxAngularVelocity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401630416951006586, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd,
+        type: 3}
+      propertyPath: GroundRayLength
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61c77ddbfb1aa4e8cac61d6b06e276fd, type: 3}
