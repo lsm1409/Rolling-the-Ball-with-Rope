@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private HingeJoint rope;   // 로프의 joint 정보 (로프가 걸리는 위치, 로프의 길이, 진자 운동 방향, 진자 운동 각도 등)
     private Texture dottedLine;    // 로프의 점선 텍스쳐
 
+    private Vector3 moveDirectionKey;
+
     private void Start()
     {
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
@@ -50,8 +52,12 @@ public class PlayerController : MonoBehaviour
         isRopeAimed = ropeJoystick.isAimed; // 로프 조이스틱이 조준 상태인지 여부를 가져온다.
         isRopeShot = ropeJoystick.isShot;    // 로프 조이스틱에서 로프 발사가 입력되었는지 여부를 가져온다.
 
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
         // 메인 카메라가 바라보는 방향을 기준으로 하여 공의 이동방향을 결정한다.
         moveDirection = (moveJoystick.Vertical * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + moveJoystick.Horizontal * Camera.main.transform.right).normalized;
+
+        moveDirectionKey = (v * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + h * Camera.main.transform.right).normalized;
     }
 
     private void FixedUpdate()
@@ -65,6 +71,8 @@ public class PlayerController : MonoBehaviour
             {
                 // 입력받은 공의 이동방향으로 공에게 힘을 가한다.
                 rigidbody.AddForce(moveDirection * MovePower);
+
+                rigidbody.AddForce(moveDirectionKey * MovePower);
             }
 
             // 점프 키가 눌리면 ...
@@ -190,20 +198,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // -- 게임 오버 -- //
-        // 공 중심에서 +y 방향으로 Raycasting한 거리가 공의 반지름보다 작다면 (공의 반지름 = 0.5, 기준 거리 =  0.35) ... (물체가 공의 y축 방향으로 공을 누른다면 ...)
-        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f))
+        // -- 공의 사망 -- //
+        // 공이 압사하거나 추락사하면 지정된 리스폰 포인트에서 부활
+        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
         {
-            // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
-            this.gameObject.SetActive(false);
-            UIController.GameOver = true;
-        }
-        // 공의 y 위치가 -20보다 작을 때 ... -> 공의 낙하로 판단
-        if (this.transform.position.y < -20)
-        {
-            // ... 공을 비활성화하고 Game Over 텍스트를 띄운다.
-            this.gameObject.SetActive(false);
-            UIController.GameOver = true;
+            transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
     }
 
@@ -216,13 +217,12 @@ public class PlayerController : MonoBehaviour
             case "Coin":
                 Destroy(other.gameObject);
                 break;
+            case "BonusCoin":
+                Destroy(other.gameObject);
+                UIController.GameOver = true;
+                break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
-                break;
-            case "Death":
-                transform.position = GameObject.FindWithTag("Respawn").transform.position;
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.angularVelocity = Vector3.zero;
                 break;
             case "Finish":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
@@ -255,6 +255,12 @@ public class PlayerController : MonoBehaviour
             case "Backward":
                 CameraController.isForward = false;
                 break;
+        }
+
+        // 리스폰 포인트 갱신
+        if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
+        {
+            GameDirector.RespawnPoint++;
         }
     }
 }
