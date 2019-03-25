@@ -27,7 +27,7 @@ public class RopeJoyStick : Joystick
         background.gameObject.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // 가운데 Button Up하여 점프가 입력되면 10 프레임 뒤에 isJumped를 false로 변경
         if (isJumped)

@@ -58,6 +58,23 @@ public class PlayerController : MonoBehaviour
         moveDirection = (moveJoystick.Vertical * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + moveJoystick.Horizontal * Camera.main.transform.right).normalized;
 
         moveDirectionKey = (v * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + h * Camera.main.transform.right).normalized;
+
+        //UI가 켜져있을때 클릭하면 유아이가 꺼짐
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (UIController.tuto_move)
+                UIController.tuto_move = false;
+            if (UIController.tuto_jump)
+            {
+                ropeJoystick.isJumped = true;
+                UIController.tuto_jump = false;
+            }
+            if (UIController.tuto_touch)
+            {
+                ropeJoystick.isJumped = true;
+                UIController.tuto_touch = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -206,6 +223,16 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
         }
+
+        //로프UI가 켜져있을때
+        if (UIController.tuto_rope)
+        {
+            this.rigidbody.velocity = Vector3.zero;
+            if (isConnected)
+            {
+                UIController.tuto_rope = false;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -254,6 +281,18 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Backward":
                 CameraController.isForward = false;
+                break;
+            case "tuto_jump":
+                Destroy(other.gameObject);
+                UIController.tuto_jump = true;
+                break;
+            case "tuto_rope":
+                Destroy(other.gameObject);
+                UIController.tuto_rope = true;
+                break;
+            case "tuto_rope_touch":
+                Destroy(other.gameObject);
+                UIController.tuto_touch = true;
                 break;
         }
 
