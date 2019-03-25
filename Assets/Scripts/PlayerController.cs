@@ -301,5 +301,11 @@ public class PlayerController : MonoBehaviour
         {
             GameDirector.RespawnPoint++;
         }
+
+        // 리스폰 포인트 갱신
+        if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
+        {
+            GameDirector.RespawnPoint++;
+        }
     }
 }
