@@ -278,6 +278,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Forward":
                 CameraController.isForward = true;
+                Debug.Log("aa");
                 break;
             case "Backward":
                 CameraController.isForward = false;
