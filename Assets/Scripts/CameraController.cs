@@ -30,10 +30,10 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, Player.transform.position + cameraPositions[offsetNum], Time.deltaTime * CameraSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(cameraRotations[offsetNum]), Time.deltaTime * CameraSpeed);
         }
-        else if (UIController.GameOver)
-        {
-            transform.RotateAround(Player.transform.position, Vector3.up, 90 * Time.deltaTime);
-        }
+        //else if (UIController.GameOver)
+        //{
+        //    transform.RotateAround(Player.transform.position, Vector3.up, 90 * Time.deltaTime);
+        //}
         else
         {
             transform.position = Player.transform.position + cameraPositions[offsetNum];

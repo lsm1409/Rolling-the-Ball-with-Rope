@@ -12,19 +12,17 @@ using UnityEngine.UI;
 /// 
 public class UIController : MonoBehaviour
 {
-    public Text Text;
     public static bool GameOver;
 
     // Start is called before the first frame update
     private void Start()
     {
-        Text.enabled = false;
+
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (GameOver)
-            Text.enabled = true;
+
     }
 }
