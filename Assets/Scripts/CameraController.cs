@@ -9,10 +9,10 @@ public class CameraController : MonoBehaviour
     public static int offsetNum;
     public static bool isForward;
     
-    private Vector3[] cameraPositions = { new Vector3(4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) };
-    private Vector3[] cameraReversePositions = { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) };
+    private Vector3[,] cameraPositions = { { new Vector3(4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) }, { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) } };
     private Vector3[] cameraRotations = { new Vector3(0, 0, 0), new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
     private bool isStart;
+    private int viewDirection;
 
     private void Start()
     {
@@ -25,9 +25,11 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        viewDirection = isForward == true ? 0 : 1;
+
         if (isStart)
         {
-            transform.position = Vector3.Lerp(transform.position, Player.transform.position + cameraPositions[offsetNum], Time.deltaTime * CameraSpeed);
+            transform.position = Vector3.Lerp(transform.position, Player.transform.position + cameraPositions[viewDirection, offsetNum], Time.deltaTime * CameraSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(cameraRotations[offsetNum]), Time.deltaTime * CameraSpeed);
         }
         //else if (UIController.GameOver)
@@ -36,7 +38,7 @@ public class CameraController : MonoBehaviour
         //}
         else
         {
-            transform.position = Player.transform.position + cameraPositions[offsetNum];
+            transform.position = Player.transform.position + cameraPositions[viewDirection, offsetNum];
             transform.rotation = Quaternion.Euler(cameraRotations[offsetNum]);
         }
 

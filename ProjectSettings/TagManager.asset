@@ -15,6 +15,9 @@ TagManager:
   - BonusCoin
   - Respawn0
   - Respawn1
+  - tuto_jump
+  - tuto_rope
+  - tuto_rope_touch
   layers:
   - Default
   - TransparentFX

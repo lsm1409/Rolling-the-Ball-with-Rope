@@ -1,10 +1,7 @@
 # Rolling-the-Ball-with-Rope
 We make a simple rolling-ball game.
 
-무슨 작업이든 항상 시작하기 전에
-
-1. 새로운 branch(작업 공간)를 만들고
-2. commit(현재 상황 저장)을 한 뒤
-3. Pull Request(저장소와 동기화 요청)를 해주세요.
-
-그래야 commit 내역이 깔끔해지고, 누가 무슨 기능을 구현했는지 보기가 쉬워집니다.
+  1. 새로운 작업을 시작하기 전에 꼭! 새로운 Branch를 생성해주세요.
+  2. 소규모의 작업이 끝나면 Commit을 해주세요. Git에 있어서 저장과 동일한 개념입니다.
+  3. 기존 작업을 Commit해야 다른 작업이 가능합니다. 오류가 발생하면 먼저 Commit을 했는지 확인해 주세요.
+  4. Branch의 작업이 전부 끝나면 GitHub Desktop에서 Ctrl+R을 눌러 Pull Request를 작성해주세요.
