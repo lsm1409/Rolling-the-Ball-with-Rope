@@ -12,7 +12,6 @@ using UnityEngine.UI;
 /// 
 public class UIController : MonoBehaviour
 {
-    public Text Text;
     public static bool GameOver;
     public Image handle_move;
     public Image handle_rope;
@@ -36,7 +35,6 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Text.enabled = false;
         handle_move.enabled = false;
         handle_rope.enabled = false;
         finger_jump.enabled = false;
@@ -49,14 +47,11 @@ public class UIController : MonoBehaviour
         tuto_rope = false;
         tuto_jump = false;
         tuto_touch = false;
-
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (GameOver)
-            Text.enabled = true;
         if (tuto_move)
         {
             Time.timeScale = 0;

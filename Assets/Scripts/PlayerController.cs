@@ -246,7 +246,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "BonusCoin":
                 Destroy(other.gameObject);
-                UIController.GameOver = true;
                 break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
