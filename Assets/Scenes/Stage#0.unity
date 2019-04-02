@@ -1221,6 +1221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 128384513}
+  - component: {fileID: 128384514}
   m_Layer: 5
   m_Name: tutorial
   m_TagString: Untagged
@@ -1254,6 +1255,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &128384514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128384512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b13cecc869c7d6498bf93aab521e5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handle_move: {fileID: 1011720501}
+  handle_rope: {fileID: 294832912}
+  finger_jump: {fileID: 149826364}
+  finger_touch: {fileID: 149826364}
+  tuto_move_back: {fileID: 1798397101}
+  tuto_jump_back: {fileID: 117017108}
+  tuto_touch_back: {fileID: 1482075231}
+  tuto_rope_back: {fileID: 449773431}
 --- !u!1001 &135255002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8122,14 +8143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a592cd5a283c349a16a77ff196ee6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handle_move: {fileID: 1011720501}
-  handle_rope: {fileID: 294832912}
-  finger_jump: {fileID: 149826364}
-  finger_touch: {fileID: 149826364}
-  tuto_move_back: {fileID: 1798397101}
-  tuto_jump_back: {fileID: 117017108}
-  tuto_touch_back: {fileID: 1482075231}
-  tuto_rope_back: {fileID: 449773431}
 --- !u!114 &1187653911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15126,7 +15139,7 @@ PrefabInstance:
     - target: {fileID: 5080927948057131538, guid: 2840c0dfe52634a44935db1770946c11,
         type: 3}
       propertyPath: CameraSpeed
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5080927948057131536, guid: 2840c0dfe52634a44935db1770946c11,
         type: 3}
