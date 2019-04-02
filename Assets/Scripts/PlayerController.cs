@@ -143,8 +143,8 @@ public class PlayerController : MonoBehaviour
                 line.SetPosition(0, this.transform.position);  // 선의 시작위치를 공의 위치로 지정한다.
                 line.SetPosition(1, this.transform.position + ropeDirection * MaxRopeLength);    // 조준선이기 때문에 공 위치에서 조준방향으로 로프 최대길이만큼 이동한 좌표를 선의 끝 위치로 한다.
                 line.material.mainTexture = dottedLine;   // 선의 텍스쳐를 점선으로 한다.
-                line.startWidth = 0.1f;    // 선의 시작지점 두께
-                line.endWidth = 0.1f;  // 선의 끝지점 두께
+                line.startWidth = 0.3f;    // 선의 시작지점 두께
+                line.endWidth = 0.3f;  // 선의 끝지점 두께
 
                 // 로프가 걸릴 수 있는 조건 판단 후 점선 색 지정
                 if (canRopeSet)
