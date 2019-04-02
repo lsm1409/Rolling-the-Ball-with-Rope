@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
         isForward = true;
         isStart = true;
 
-        Invoke("SetToFalse", 1.0F);
+        Invoke("SetToFalse", 2.5F);
     }
 
     private void LateUpdate()
