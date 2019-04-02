@@ -32,7 +32,7 @@ public class TutorialController : MonoBehaviour
         tuto_jump_back.enabled = false;
         tuto_rope_back.enabled = false;
         tuto_touch_back.enabled = false;
-        tuto_move = true;
+        tuto_move = false;
         tuto_rope = false;
         tuto_jump = false;
         tuto_touch = false;
