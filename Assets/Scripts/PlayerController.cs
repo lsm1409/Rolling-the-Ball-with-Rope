@@ -62,17 +62,17 @@ public class PlayerController : MonoBehaviour
         //UI가 켜져있을때 클릭하면 유아이가 꺼짐
         if (Input.GetMouseButtonDown(0))
         {
-            if (UIController.tuto_move)
-                UIController.tuto_move = false;
-            if (UIController.tuto_jump)
+            if (TutorialController.tuto_move)
+                TutorialController.tuto_move = false;
+            if (TutorialController.tuto_jump)
             {
                 ropeJoystick.isJumped = true;
-                UIController.tuto_jump = false;
+                TutorialController.tuto_jump = false;
             }
-            if (UIController.tuto_touch)
+            if (TutorialController.tuto_touch)
             {
                 ropeJoystick.isJumped = true;
-                UIController.tuto_touch = false;
+                TutorialController.tuto_touch = false;
             }
         }
     }
@@ -225,12 +225,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //로프UI가 켜져있을때
-        if (UIController.tuto_rope)
+        if (TutorialController.tuto_rope)
         {
             this.rigidbody.velocity = Vector3.zero;
             if (isConnected)
             {
-                UIController.tuto_rope = false;
+                TutorialController.tuto_rope = false;
             }
         }
     }
@@ -242,10 +242,16 @@ public class PlayerController : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Coin":
-                Destroy(other.gameObject);
+                other.GetComponent<AudioSource>().Play();
+                Destroy(other.GetComponent<MeshCollider>());
+                Destroy(other.GetComponent<MeshRenderer>());
+                Invoke("Destroy(other.gameObject)", Time.deltaTime);
                 break;
             case "BonusCoin":
-                Destroy(other.gameObject);
+                other.GetComponent<AudioSource>().Play();
+                Destroy(other.GetComponent<MeshCollider>());
+                Destroy(other.GetComponent<MeshRenderer>());
+                Invoke("Destroy(other.gameObject)", Time.deltaTime);
                 break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
@@ -256,18 +262,23 @@ public class PlayerController : MonoBehaviour
                 break;
             case "FreezeAll":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeX":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeY":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeZ":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeNone":
                 rigidbody.constraints = RigidbodyConstraints.None;
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "RotateL":
                 CameraController.offsetNum = (--offsetNum + 4) % 4;
@@ -284,15 +295,15 @@ public class PlayerController : MonoBehaviour
                 break;
             case "tuto_jump":
                 Destroy(other.gameObject);
-                UIController.tuto_jump = true;
+                TutorialController.tuto_jump = true;
                 break;
             case "tuto_rope":
                 Destroy(other.gameObject);
-                UIController.tuto_rope = true;
+                TutorialController.tuto_rope = true;
                 break;
             case "tuto_rope_touch":
                 Destroy(other.gameObject);
-                UIController.tuto_touch = true;
+                TutorialController.tuto_touch = true;
                 break;
         }
 
