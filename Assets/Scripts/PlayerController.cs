@@ -62,17 +62,17 @@ public class PlayerController : MonoBehaviour
         //UI가 켜져있을때 클릭하면 유아이가 꺼짐
         if (Input.GetMouseButtonDown(0))
         {
-            if (UIController.tuto_move)
-                UIController.tuto_move = false;
-            if (UIController.tuto_jump)
+            if (TutorialController.tuto_move)
+                TutorialController.tuto_move = false;
+            if (TutorialController.tuto_jump)
             {
                 ropeJoystick.isJumped = true;
-                UIController.tuto_jump = false;
+                TutorialController.tuto_jump = false;
             }
-            if (UIController.tuto_touch)
+            if (TutorialController.tuto_touch)
             {
                 ropeJoystick.isJumped = true;
-                UIController.tuto_touch = false;
+                TutorialController.tuto_touch = false;
             }
         }
     }
@@ -225,12 +225,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //로프UI가 켜져있을때
-        if (UIController.tuto_rope)
+        if (TutorialController.tuto_rope)
         {
             this.rigidbody.velocity = Vector3.zero;
             if (isConnected)
             {
-                UIController.tuto_rope = false;
+                TutorialController.tuto_rope = false;
             }
         }
     }
@@ -295,15 +295,15 @@ public class PlayerController : MonoBehaviour
                 break;
             case "tuto_jump":
                 Destroy(other.gameObject);
-                UIController.tuto_jump = true;
+                TutorialController.tuto_jump = true;
                 break;
             case "tuto_rope":
                 Destroy(other.gameObject);
-                UIController.tuto_rope = true;
+                TutorialController.tuto_rope = true;
                 break;
             case "tuto_rope_touch":
                 Destroy(other.gameObject);
-                UIController.tuto_touch = true;
+                TutorialController.tuto_touch = true;
                 break;
         }
 
