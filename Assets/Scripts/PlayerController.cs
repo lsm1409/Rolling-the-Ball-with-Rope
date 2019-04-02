@@ -245,13 +245,11 @@ public class PlayerController : MonoBehaviour
                 other.GetComponent<AudioSource>().Play();
                 Destroy(other.GetComponent<MeshCollider>());
                 Destroy(other.GetComponent<MeshRenderer>());
-                Invoke("Destroy(other.gameObject)", Time.deltaTime);
                 break;
             case "BonusCoin":
                 other.GetComponent<AudioSource>().Play();
                 Destroy(other.GetComponent<MeshCollider>());
                 Destroy(other.GetComponent<MeshRenderer>());
-                Invoke("Destroy(other.gameObject)", Time.deltaTime);
                 break;
             case "Up":
                 this.rigidbody.AddForce(new Vector3(1, 2, 0).normalized * 55f, ForceMode.Impulse);
