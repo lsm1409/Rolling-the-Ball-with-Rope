@@ -19,8 +19,14 @@ public class CameraController : MonoBehaviour
         offsetNum = 0;
         isForward = true;
         isStart = true;
+        
+        Invoke("SetToFalse", 3F);
+        Invoke("tutomove_start", 3F);
+    }
 
-        Invoke("SetToFalse", 2.5F);
+    private void tutomove_start()
+    {
+        TutorialController.tuto_move = true;
     }
 
     private void LateUpdate()
