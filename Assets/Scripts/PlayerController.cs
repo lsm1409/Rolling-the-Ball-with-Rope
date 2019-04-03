@@ -245,6 +245,7 @@ public class PlayerController : MonoBehaviour
                 other.GetComponent<AudioSource>().Play();
                 Destroy(other.GetComponent<MeshCollider>());
                 Destroy(other.GetComponent<MeshRenderer>());
+                UIController.coin_count++;
                 break;
             case "BonusCoin":
                 other.GetComponent<AudioSource>().Play();
