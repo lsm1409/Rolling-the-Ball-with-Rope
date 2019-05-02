@@ -35,7 +35,14 @@ public class UIController : MonoBehaviour
         time += Time.deltaTime;
         min = (int)(time / 60);
         sec = (int)time % 60;
-        time_txt.text = min + " : " + sec;
+        if(min < 10 && sec < 10)
+            time_txt.text = "0" + min + " : 0" + sec;
+        else if(min >= 10 && sec < 10)
+            time_txt.text = min + " : 0" + sec;
+        else if(min < 10 && sec >= 10)
+            time_txt.text = "0" + min + " : " + sec;
+        else
+            time_txt.text = min + " : " + sec;
         if (coin_count == 1)
             coin1.GetComponent<Image>().sprite = get_coin;
         if (coin_count == 2)
