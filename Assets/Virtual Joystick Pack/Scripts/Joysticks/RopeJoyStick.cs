@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 /// 
 /// 
-public class RopeJoyStick : Joystick
+public class RopeJoystick : Joystick
 {
     // 조이스틱을 이용한 입력 여부를 판단하는 bool형 필드
     // BallController 스크립트에서 참조하기 위해 public 변수
