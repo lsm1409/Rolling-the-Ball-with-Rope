@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: b9a8dc26ab2b44992aaa8f44384fce96
+  - enabled: 1
+    path: Assets/Scenes/SelectStage.unity
+    guid: d388c052d579e4886b9229fbe654d2de
+  - enabled: 1
+    path: Assets/Scenes/Stage#0.unity
+    guid: 97289ff4e0716408bac5f3e65165a3de
   m_configObjects: {}
