@@ -18,6 +18,8 @@ TagManager:
   - tuto_jump
   - tuto_rope
   - tuto_rope_touch
+  - PortalBlue
+  - PortalOrange
   layers:
   - Default
   - TransparentFX
