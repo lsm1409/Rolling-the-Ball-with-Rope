@@ -264,23 +264,18 @@ public class PlayerController : MonoBehaviour
                 break;
             case "FreezeAll":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeX":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
-                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeY":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
-                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeZ":
                 rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
-                other.GetComponent<AudioSource>().Play();
                 break;
             case "FreezeNone":
                 rigidbody.constraints = RigidbodyConstraints.None;
-                other.GetComponent<AudioSource>().Play();
                 break;
             case "RotateL":
                 CameraController.offsetNum = (--offsetNum + 4) % 4;

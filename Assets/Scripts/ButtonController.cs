@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+public class ButtonController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -20,16 +20,18 @@ public class SceneController : MonoBehaviour
     public void TitleScene()
     {
         SceneManager.LoadScene("Title");
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StageSelect()
     {
         SceneManager.LoadScene("SelectStage");
-
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayStage0()
     {
         SceneManager.LoadScene("Stage#0");
+        DontDestroyOnLoad(gameObject);
     }
 }

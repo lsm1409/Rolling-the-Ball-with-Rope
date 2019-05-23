@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class AudioController : MonoBehaviour
 {
+    static bool isFirst = true;
+
     // Start is called before the first frame update
     void Start()
     {
-            DontDestroyOnLoad(transform.gameObject);
+        if (isFirst)
+        {
+            this.GetComponent<AudioSource>().Play();
+            isFirst = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -17,12 +24,10 @@ public class AudioController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "SelectStage")
         {
             DontDestroyOnLoad(transform.gameObject);
-            //Destroy(transform.gameObject);
         }
         else if (SceneManager.GetActiveScene().name == "Title")
         {
             DontDestroyOnLoad(transform.gameObject);
-            //Destroy(transform.gameObject);
         }
         else
         {
