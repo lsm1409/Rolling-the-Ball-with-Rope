@@ -53,8 +53,8 @@ public class TutorialController : MonoBehaviour
             if (count_move >= 45)
             {
                 Vector3 temp1 = handle_move.rectTransform.parent.position;
-                temp1.x -= 495;
-                temp1.y -= 205;
+                temp1.x -= 952;
+                temp1.y -= 382;
                 handle_move.rectTransform.position = temp1;
                 count_move = 0;
             }
@@ -80,14 +80,14 @@ public class TutorialController : MonoBehaviour
             tuto_rope_back.enabled = true;
             Vector3 temp = handle_rope.rectTransform.position;
             temp.x += 1;
-            temp.y += 1;
+            temp.y += 0.5f;
             handle_rope.rectTransform.position = temp;
             count_rope++;
             if (count_rope >= 45)
             {
                 Vector3 temp1 = handle_rope.rectTransform.parent.position;
-                temp1.x += 500;
-                temp1.y -= 215;
+                temp1.x += 945;
+                temp1.y -= 430;
                 handle_rope.rectTransform.position = temp1;
                 count_rope = 0;
             }

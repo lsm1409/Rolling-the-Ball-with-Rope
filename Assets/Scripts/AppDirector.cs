@@ -17,6 +17,9 @@ public class AppDirector : MonoBehaviour
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
 
+        // 해상도 조절
+        Screen.SetResolution(2560, 1440, true);
+
         // 프레임레이트를 60으로 설정
         Application.targetFrameRate = 60;
     }
