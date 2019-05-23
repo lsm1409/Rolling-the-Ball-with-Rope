@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PortalController : MonoBehaviour
 {
+    public Vector3 normal;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,18 +20,22 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && CompareTag("PortalBlue"))
+        GameObject player = other.gameObject;
+
+        if (CompareTag("PortalBlue"))
         {
-            Debug.Log("this is blue");
+            Debug.Log(player.GetComponent<Rigidbody>().velocity);
             Vector3 portalOrange = GameObject.FindWithTag("PortalOrange").transform.GetChild(0).position;
-            other.gameObject.transform.position = portalOrange;
+            player.transform.position = portalOrange;
+            player.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity.magnitude * normal.normalized;
         }
 
-        if (other.gameObject.CompareTag("Player") && CompareTag("PortalOrange"))
+        if (CompareTag("PortalOrange"))
         {
-            Debug.Log("this is orange");
+            Debug.Log(player.GetComponent<Rigidbody>().velocity);
             Vector3 portalBlue = GameObject.FindWithTag("PortalBlue").transform.GetChild(0).position;
             other.gameObject.transform.position = portalBlue;
+            player.GetComponent<Rigidbody>().velocity = player.GetComponent<Rigidbody>().velocity.magnitude * normal.normalized;
         }
     }
 }
