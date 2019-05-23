@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 moveDirectionKey;
 
+    public static int coinCount = 0;   // 먹은 코인 개수
+
     private void Start()
     {
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
@@ -248,7 +250,7 @@ public class PlayerController : MonoBehaviour
                 other.GetComponent<AudioSource>().Play();
                 Destroy(other.GetComponent<MeshCollider>());
                 Destroy(other.GetComponent<MeshRenderer>());
-                UIController.coin_count++;
+                coin_count++;
                 break;
             case "BonusCoin":
                 other.GetComponent<AudioSource>().Play();

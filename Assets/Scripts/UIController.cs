@@ -18,7 +18,6 @@ public class UIController : MonoBehaviour
     public Image coin1;
     public Image coin2;
     public Image coin3;
-    public static int coin_count;
     private float time;
     int min = 0, sec = 0;
 
@@ -26,7 +25,6 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         time = 0;
-        coin_count = 0;
     }
 
     // Update is called once per frame
@@ -43,11 +41,11 @@ public class UIController : MonoBehaviour
             time_txt.text = "0" + min + " : " + sec;
         else
             time_txt.text = min + " : " + sec;
-        if (coin_count == 1)
+        if (PlayerController.coinCount == 1)
             coin1.GetComponent<Image>().sprite = get_coin;
-        if (coin_count == 2)
+        if (PlayerController.coinCount == 2)
             coin2.GetComponent<Image>().sprite = get_coin;
-        if (coin_count == 3)
+        if (PlayerController.coinCount == 3)
             coin3.GetComponent<Image>().sprite = get_coin;
     }
 }
