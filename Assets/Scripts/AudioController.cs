@@ -34,4 +34,9 @@ public class AudioController : MonoBehaviour
             Destroy(transform.gameObject);
         }
     }
+
+    public void SoundOnOff()
+    {
+        AudioListener.pause = !AudioListener.pause;
+    }
 }
