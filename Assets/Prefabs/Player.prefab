@@ -122,9 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b2398e0ff8b9043a8dd39648bad36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 0.75
-  MovePower: 20
-  MaxVelocity: 13
+  JumpPower: 1
+  MovePower: 10
+  MaxVelocity: 10
   MaxAngularVelocity: 10
   GroundRayLength: 1
   MaxRopeLength: 25
