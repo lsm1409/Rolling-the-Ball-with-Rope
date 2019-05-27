@@ -20,6 +20,8 @@ TagManager:
   - tuto_rope_touch
   - PortalBlue
   - PortalOrange
+  - PortalBlue2
+  - PortalOrange2
   layers:
   - Default
   - TransparentFX
