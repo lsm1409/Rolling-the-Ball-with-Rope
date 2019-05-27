@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
         moveDirection = (moveJoystick.Vertical * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + moveJoystick.Horizontal * Camera.main.transform.right).normalized;
 
         moveDirectionKey = (v * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + h * Camera.main.transform.right).normalized;
-
-
     }
 
     private void FixedUpdate()
