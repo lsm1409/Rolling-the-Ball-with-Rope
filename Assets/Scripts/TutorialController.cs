@@ -21,6 +21,9 @@ public class TutorialController : MonoBehaviour
     private int count_rope = 0;
     private int count_touch = 0;
 
+    private PlayerController player;
+    private RopeJoystick ropeJoystick; // 로프를 조작하는 조이스틱 객체
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,9 @@ public class TutorialController : MonoBehaviour
         tuto_rope = false;
         tuto_jump = false;
         tuto_touch = false;
+
+        player = FindObjectOfType<PlayerController>();
+        ropeJoystick = FindObjectOfType<RopeJoystick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
     }
 
     // Update is called once per frame
@@ -43,7 +49,7 @@ public class TutorialController : MonoBehaviour
     {
         if (tuto_move)
         {
-            Time.timeScale = 0;
+            GameDirector.isPaused = true;
             handle_move.enabled = true;
             tuto_move_back.enabled = true;
             Vector3 temp = handle_move.rectTransform.position;
@@ -61,23 +67,21 @@ public class TutorialController : MonoBehaviour
         }
         else if (tuto_jump)
         {
-            Time.timeScale = 0;
+            GameDirector.isPaused = true;
             tuto_jump_back.enabled = true;
             count_jump++;
             if (count_jump >= 30)
             {
-                if (finger_jump.enabled == true)
-                    finger_jump.enabled = false;
-                else
-                    finger_jump.enabled = true;
+                finger_jump.enabled = !finger_jump.enabled;
                 count_jump = 0;
             }
         }
         else if (tuto_rope)
         {
-            //Time.timeScale = 0;
+            //GameDirector.isPaused = true;
             handle_rope.enabled = true;
             tuto_rope_back.enabled = true;
+            player.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             Vector3 temp = handle_rope.rectTransform.position;
             temp.x += 1;
             temp.y += 0.5f;
@@ -91,32 +95,52 @@ public class TutorialController : MonoBehaviour
                 handle_rope.rectTransform.position = temp1;
                 count_rope = 0;
             }
+
+            if (player.IsConnected)
+            {
+                handle_rope.enabled = false;
+                tuto_rope_back.enabled = false;
+                tuto_rope = false;
+            }
         }
         else if (tuto_touch)
         {
-            Time.timeScale = 0;
+            GameDirector.isPaused = true;
             tuto_touch_back.enabled = true;
             count_touch++;
             if (count_touch >= 30)
             {
-                if (finger_touch.enabled == true)
-                    finger_touch.enabled = false;
-                else
-                    finger_touch.enabled = true;
+                finger_touch.enabled = !finger_touch.enabled;
                 count_touch = 0;
             }
         }
-        else
+
+        // UI가 켜져있을때 클릭하면 UI가 꺼짐
+        if (Input.GetMouseButtonDown(0))
         {
-            Time.timeScale = 1;
-            handle_move.enabled = false;
-            handle_rope.enabled = false;
-            finger_jump.enabled = false;
-            finger_touch.enabled = false;
-            tuto_move_back.enabled = false;
-            tuto_jump_back.enabled = false;
-            tuto_rope_back.enabled = false;
-            tuto_touch_back.enabled = false;
+            if (tuto_move)
+            {
+                GameDirector.isPaused = false;
+                handle_move.enabled = false;
+                tuto_move_back.enabled = false;
+                tuto_move = false;
+            }
+            if (tuto_jump)
+            {
+                GameDirector.isPaused = false;
+                ropeJoystick.isJumped = true;
+                tuto_jump_back.enabled = false;
+                finger_jump.enabled = false;
+                tuto_jump = false;
+            }
+            if (tuto_touch)
+            {
+                GameDirector.isPaused = false;
+                ropeJoystick.isJumped = true;
+                tuto_touch_back.enabled = false;
+                finger_touch.enabled = false;
+                tuto_touch = false;
+            }
         }
     }
 }

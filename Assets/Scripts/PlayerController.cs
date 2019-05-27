@@ -27,11 +27,11 @@ public class PlayerController : MonoBehaviour
     private bool isJumpPressed; // 공의 점프가 입력되면 true
     private bool isRopeAimed;  // 로프 조준이 입력되면 true
     private bool isRopeShot;    // 로프 발사가 입력되면 true
-    private bool isConnected;   // 공이 로프와 연결되면 true
     private HingeJoint rope;   // 로프의 joint 정보 (로프가 걸리는 위치, 로프의 길이, 진자 운동 방향, 진자 운동 각도 등)
     private Texture dottedLine;    // 로프의 점선 텍스쳐
-
     private Vector3 moveDirectionKey;
+
+    public bool IsConnected { get; private set; }   // 공이 로프와 연결되면 true
 
     public static int coinCount = 0;   // 먹은 코인 개수
 
@@ -61,22 +61,7 @@ public class PlayerController : MonoBehaviour
 
         moveDirectionKey = (v * Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized + h * Camera.main.transform.right).normalized;
 
-        //UI가 켜져있을때 클릭하면 유아이가 꺼짐
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (TutorialController.tuto_move)
-                TutorialController.tuto_move = false;
-            if (TutorialController.tuto_jump)
-            {
-                ropeJoystick.isJumped = true;
-                TutorialController.tuto_jump = false;
-            }
-            if (TutorialController.tuto_touch)
-            {
-                ropeJoystick.isJumped = true;
-                TutorialController.tuto_touch = false;
-            }
-        }
+
     }
 
     private void FixedUpdate()
@@ -103,7 +88,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // -- 로프 연결 상태 --
-        if (isConnected)
+        if (IsConnected)
         {
             // ... 로프를 시각적으로 그리기 위해 LineRenderer 컴포넌트를 설정한다. (실선)
             line.enabled = true;   // 컴포넌트를 활성화한다.
@@ -121,7 +106,7 @@ public class PlayerController : MonoBehaviour
             if (isJumpPressed)
             {
                 // ... 연결 상태를 해제하고 로프를 표현하는 HingeJoint 컴포넌트를 없앤다. (비활성화 불가)
-                isConnected = false;
+                IsConnected = false;
                 Destroy(rope);
             }
         }
@@ -213,7 +198,7 @@ public class PlayerController : MonoBehaviour
                 rope.useLimits = true;
 
                 // 로프 연결 상태로 변경
-                isConnected = true;
+                IsConnected = true;
             }
         }
 
@@ -225,16 +210,6 @@ public class PlayerController : MonoBehaviour
             transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
-        }
-
-        //로프UI가 켜져있을때
-        if (TutorialController.tuto_rope)
-        {
-            this.rigidbody.velocity = Vector3.zero;
-            if (isConnected)
-            {
-                TutorialController.tuto_rope = false;
-            }
         }
     }
 
