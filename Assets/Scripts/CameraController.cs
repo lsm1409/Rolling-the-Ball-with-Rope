@@ -8,7 +8,8 @@ public class CameraController : MonoBehaviour
     public float MaxFieldOfView;
     public static int offsetNum;
     public static bool isForward;
-    
+    public static bool isChangingDirection;
+
     private Vector3[,] cameraPositions = { { new Vector3(4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) }, { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) } };
     private Vector3[] cameraRotations = { new Vector3(0, 0, 0), new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
     private bool isStart;
@@ -19,8 +20,11 @@ public class CameraController : MonoBehaviour
         offsetNum = 0;
         isForward = true;
         isStart = true;
-        
-        Invoke("SetToFalse", 3F);
+
+        if (isChangingDirection)
+        {
+            Invoke("SetToFalse", 3F);
+        }
         Invoke("tutomove_start", 3F);
     }
 
@@ -33,7 +37,7 @@ public class CameraController : MonoBehaviour
     {
         viewDirection = isForward == true ? 0 : 1;
 
-        if (isStart)
+        if (isStart || isChangingDirection)
         {
             transform.position = Vector3.Lerp(transform.position, Player.transform.position + cameraPositions[viewDirection, offsetNum], Time.deltaTime * CameraSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(cameraRotations[offsetNum]), Time.deltaTime * CameraSpeed);
@@ -65,5 +69,6 @@ public class CameraController : MonoBehaviour
     private void SetToFalse()
     {
         isStart = false;
+        isChangingDirection = false;
     }
 }

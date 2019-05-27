@@ -217,8 +217,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-        /*
+        
         // -- 공의 사망 -- //
         // 공이 압사하거나 추락사하면 지정된 리스폰 포인트에서 부활
         if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
@@ -227,7 +226,6 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
         }
-        */
 
         //로프UI가 켜져있을때
         if (TutorialController.tuto_rope)
@@ -287,10 +285,11 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Forward":
                 CameraController.isForward = true;
-                Debug.Log("aa");
+                CameraController.isChangingDirection = true;
                 break;
             case "Backward":
                 CameraController.isForward = false;
+                CameraController.isChangingDirection = true;
                 break;
             case "tuto_jump":
                 Destroy(other.gameObject);

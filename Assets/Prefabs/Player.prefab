@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPower: 1
-  MovePower: 10
-  MaxVelocity: 10
+  MovePower: 20
+  MaxVelocity: 13
   MaxAngularVelocity: 10
   GroundRayLength: 1
   MaxRopeLength: 25
