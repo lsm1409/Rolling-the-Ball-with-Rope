@@ -15904,7 +15904,7 @@ PrefabInstance:
     - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
@@ -15954,6 +15954,31 @@ PrefabInstance:
     - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1865311015}
+    - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CloseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278046630542575, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7318278046661471697, guid: a89caa36544454ba0bfbe09c77512993,
@@ -16014,7 +16039,7 @@ PrefabInstance:
     - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
@@ -16064,6 +16089,31 @@ PrefabInstance:
     - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1865311015}
+    - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: CloseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318278047675058956, guid: a89caa36544454ba0bfbe09c77512993,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7318278048196478731, guid: a89caa36544454ba0bfbe09c77512993,
