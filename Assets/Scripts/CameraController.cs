@@ -2,7 +2,6 @@
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject Player;
     public float CameraSpeed;
     public float FieldOfView;
     public float MaxFieldOfView;
@@ -10,8 +9,9 @@ public class CameraController : MonoBehaviour
     public static bool isForward;
     public static bool isChangingDirection;
 
-    private Vector3[,] cameraPositions = { { new Vector3(4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) }, { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) } };
-    private Vector3[] cameraRotations = { new Vector3(0, 0, 0), new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
+    private GameObject player;
+    private readonly Vector3[,] cameraPositions = { { new Vector3(4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) }, { new Vector3(-4, 6, -20), new Vector3(-8, 2, 0), new Vector3(8, 6, 20), new Vector3(8, 2, 0) } };
+    private readonly Vector3[] cameraRotations = { new Vector3(0, 0, 0), new Vector3(0, 90, 0), new Vector3(0, 180, 0), new Vector3(0, 270, 0) };
     private bool isStart;
     private int viewDirection;
 
@@ -25,10 +25,12 @@ public class CameraController : MonoBehaviour
         {
             Invoke("SetToFalse", 3F);
         }
-        Invoke("tutomove_start", 3F);
+        Invoke("Tutomove_start", 3F);
+
+        player = FindObjectOfType<PlayerController>().gameObject;
     }
 
-    private void tutomove_start()
+    private void Tutomove_start()
     {
         TutorialController.tuto_move = true;
     }
@@ -39,7 +41,7 @@ public class CameraController : MonoBehaviour
 
         if (isStart || isChangingDirection)
         {
-            transform.position = Vector3.Lerp(transform.position, Player.transform.position + cameraPositions[viewDirection, offsetNum], Time.deltaTime * CameraSpeed);
+            transform.position = Vector3.Lerp(transform.position, player.transform.position + cameraPositions[viewDirection, offsetNum], Time.deltaTime * CameraSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(cameraRotations[offsetNum]), Time.deltaTime * CameraSpeed);
         }
         //else if (UIController.GameOver)
@@ -48,11 +50,11 @@ public class CameraController : MonoBehaviour
         //}
         else
         {
-            transform.position = Player.transform.position + cameraPositions[viewDirection, offsetNum];
+            transform.position = player.transform.position + cameraPositions[viewDirection, offsetNum];
             transform.rotation = Quaternion.Euler(cameraRotations[offsetNum]);
         }
 
-        if (Player.GetComponent<Rigidbody>().velocity.magnitude > (Player.GetComponent<PlayerController>().MaxVelocity * 0.95F))
+        if (player.GetComponent<Rigidbody>().velocity.magnitude > (player.GetComponent<PlayerController>().MaxVelocity * 0.95F))
         {
             // ... 카메라의 field of view를 넓힙니다.
             if (Camera.main.fieldOfView < MaxFieldOfView)
