@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static bool GameOver;
+    public Canvas ClearCanvas;
     public Text time_txt;
     public Sprite get_coin;
     public Image coin1;
@@ -45,5 +46,16 @@ public class UIController : MonoBehaviour
             coin2.GetComponent<Image>().sprite = get_coin;
         if (PlayerController.coinCount == 3)
             coin3.GetComponent<Image>().sprite = get_coin;
+
+        if (GameOver)
+        {
+            GameDirector.isPaused = true;
+            ClearCanvas.gameObject.SetActive(true);
+            ClearCanvas.GetComponentInChildren<Text>().text = time_txt.text;
+            for (int i = 1; i <= PlayerController.coinCount; i++)
+            {
+                ClearCanvas.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
     }
 }
