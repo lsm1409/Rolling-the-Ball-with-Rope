@@ -26,7 +26,8 @@ public class SceneDirector : MonoBehaviour
         GameDirector.isPaused = false;
         PlayerController.coinCount = 0;
         Destroy(GameObject.Find("Button Sound"), 0.3f);
-        SceneManager.LoadScene("Stage#0");
+        //SceneManager.LoadScene("Stage#0");
+        LoadingController.LoadScene("Stage#0");
     }
 
     public void PlayStage1()
@@ -35,6 +36,7 @@ public class SceneDirector : MonoBehaviour
         GameDirector.isPaused = false;
         PlayerController.coinCount = 0;
         Destroy(GameObject.Find("Button Sound"), 0.3f);
-        SceneManager.LoadScene("Stage#1");
+        //SceneManager.LoadScene("Stage#1");
+        LoadingController.LoadScene("Stage#1");
     }
 }
