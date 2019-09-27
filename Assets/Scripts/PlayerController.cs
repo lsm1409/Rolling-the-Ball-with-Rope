@@ -276,6 +276,18 @@ public class PlayerController : MonoBehaviour
                 Destroy(other.gameObject);
                 TutorialController.tuto_touch = true;
                 break;
+            case "JumpZone":
+                rigidbody.AddForce(Vector3.up * JumpPower * 20, ForceMode.Impulse);
+                break;
+            case "BoostZone":
+                rigidbody.AddForce(moveDirection * 20, ForceMode.Impulse);
+                break;
+            case "CameraBackward":
+                CameraController.isCameraGoingBackward = true;
+                break;
+            case "CameraForward":
+                CameraController.isCameraGoingBackward = false;
+                break;
         }
 
         // 리스폰 포인트 갱신

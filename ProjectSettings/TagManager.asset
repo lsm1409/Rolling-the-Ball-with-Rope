@@ -22,6 +22,10 @@ TagManager:
   - PortalOrange
   - PortalBlue2
   - PortalOrange2
+  - JumpZone
+  - BoostZone
+  - CameraBackward
+  - CameraForward
   layers:
   - Default
   - TransparentFX

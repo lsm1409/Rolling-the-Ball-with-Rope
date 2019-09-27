@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -593,6 +593,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -4236,8 +4237,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: OpenMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 3932319764312022215, guid: 76e202d29af1b478a9069e10812c9dd3,
+        type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 428633934}
+    - target: {fileID: 3932319764312022215, guid: 76e202d29af1b478a9069e10812c9dd3,
+        type: 3}
+      propertyPath: handle
+      value: 
+      objectReference: {fileID: 428633935}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76e202d29af1b478a9069e10812c9dd3, type: 3}
+--- !u!224 &428633934 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3932319763326031458, guid: 76e202d29af1b478a9069e10812c9dd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 428633933}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &428633935 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3932319764918421030, guid: 76e202d29af1b478a9069e10812c9dd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 428633933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &435390750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5852,7 +5875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 589278972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -5871,7 +5894,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 589278972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -7702,6 +7725,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
