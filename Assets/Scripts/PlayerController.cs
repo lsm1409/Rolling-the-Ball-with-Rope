@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private new Rigidbody rigidbody;   // 공의 rigidbody 컴포넌트를 담는 필드
     private LineRenderer line; // 로프를 표현하는 LineRenderer 컴포넌트를 담는 필드
     private Joystick moveJoystick; // 공 이동을 조작하는 조이스틱 객체
-    private RopeJoystick ropeJoystick; // 로프를 조작하는 조이스틱 객체
+    private RopeJoyStick ropeJoystick; // 로프를 조작하는 조이스틱 객체
     private Vector3 moveDirection; // 카메라가 바라보는 방향을 고려한 공의 이동방향
     private Vector3 ropeDirection; // 로프 조준 및 발사 방향 (x, y 값만 존재)
     private bool isJumpPressed; // 공의 점프가 입력되면 true
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         moveJoystick = FindObjectOfType<FloatingJoystick>();   // 오브젝트들 중 FloatingJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
-        ropeJoystick = FindObjectOfType<RopeJoystick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
+        ropeJoystick = FindObjectOfType<RopeJoyStick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
 
         rigidbody = GetComponent<Rigidbody>(); // 공의 rigidbody 컴포넌트를 가져온다.
         line = GetComponent<LineRenderer>();   // 공의 LineRenderer 컴포넌트를 가져온다.

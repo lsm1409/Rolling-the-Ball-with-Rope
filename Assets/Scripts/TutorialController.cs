@@ -22,7 +22,7 @@ public class TutorialController : MonoBehaviour
     private int count_touch = 0;
 
     private PlayerController player;
-    private RopeJoystick ropeJoystick; // 로프를 조작하는 조이스틱 객체
+    private RopeJoyStick ropeJoystick; // 로프를 조작하는 조이스틱 객체
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class TutorialController : MonoBehaviour
         tuto_touch = false;
 
         player = FindObjectOfType<PlayerController>();
-        ropeJoystick = FindObjectOfType<RopeJoystick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
+        ropeJoystick = FindObjectOfType<RopeJoyStick>();   // 오브젝트들 중 RopeJoyStick 클래스 스크립트가 적용된 오브젝트를 가져온다.
     }
 
     // Update is called once per frame
