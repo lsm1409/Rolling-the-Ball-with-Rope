@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(rigidbody.velocity);
         // -- 공 이동 및 점프 -- //
         // 공에서 -y 방향으로 Raycasting하여 공이 땅에 붙어있다고 판단될 경우 ...
         if (Physics.Raycast(this.transform.position, Vector3.down, GroundRayLength))
@@ -280,7 +281,8 @@ public class PlayerController : MonoBehaviour
                 rigidbody.AddForce(Vector3.up * JumpPower * 20, ForceMode.Impulse);
                 break;
             case "BoostZone":
-                rigidbody.AddForce(moveDirection * 20, ForceMode.Impulse);
+                rigidbody.AddForce(rigidbody.velocity.normalized * 10, ForceMode.Impulse);
+                Debug.Log("true");
                 break;
             case "CameraBackward":
                 CameraController.isCameraGoingBackward = true;
