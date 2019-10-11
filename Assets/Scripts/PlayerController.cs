@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Ball controller.
@@ -64,7 +66,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(rigidbody.velocity);
         // -- 공 이동 및 점프 -- //
         // 공에서 -y 방향으로 Raycasting하여 공이 땅에 붙어있다고 판단될 경우 ...
         if (Physics.Raycast(this.transform.position, Vector3.down, GroundRayLength))
@@ -234,6 +235,39 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Finish":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                string line, temp;
+                string[] lines = new string[3];
+                int cnt = 0, time = (int)UIController.time;
+                string path = "Assets/data/player.txt";
+                int sceneNum = 10;
+                if (SceneManager.GetActiveScene().name == "Stage#0") sceneNum = 0;
+                else if (SceneManager.GetActiveScene().name == "Stage#1") sceneNum = 1;
+                else if (SceneManager.GetActiveScene().name == "Stage#2") sceneNum = 2;
+                System.IO.StreamReader file = new System.IO.StreamReader(@path);
+                while ((line = file.ReadLine()) != null)
+                {
+                    temp = line.Substring(0, 1);
+                    if(int.Parse(temp) == sceneNum)
+                    {
+                        if (coinCount > StageSelectController.getCoin(cnt))
+                            lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
+                        else if(time < StageSelectController.getTime(cnt) && coinCount == StageSelectController.getCoin(cnt))
+                            lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
+                        else
+                            lines[cnt] = line;
+                    }
+                    else
+                    {
+                        lines[cnt] = line;
+                    }
+                    cnt++;
+                }
+                file.Close();
+                StreamWriter sw = new StreamWriter(@path, false);
+                for (int i = 0; i < 3; i++)
+                    sw.WriteLine(lines[i]);
+                sw.Close();
+
                 UIController.GameOver = true;
                 break;
             case "FreezeAll":

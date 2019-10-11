@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
     public Image coin1;
     public Image coin2;
     public Image coin3;
-    private float time;
+    public static float time;
     int min = 0, sec = 0;
 
     // Start is called before the first frame update
