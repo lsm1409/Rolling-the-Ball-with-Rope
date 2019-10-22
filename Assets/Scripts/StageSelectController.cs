@@ -28,7 +28,6 @@ public class StageSelectController : MonoBehaviour
         cnt = 0;
         while ((line = file.ReadLine()) != null)
         {
-            Debug.Log(line);
             temp = line.Substring(1, 1);
             record[cnt, 1] = int.Parse(temp);
             temp = line.Substring(2, 1);
