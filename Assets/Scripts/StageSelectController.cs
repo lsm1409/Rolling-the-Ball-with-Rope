@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageSelectController : MonoBehaviour
 {
@@ -10,6 +11,16 @@ public class StageSelectController : MonoBehaviour
     string line, temp;
     static int[,] record = new int[3, 4]; //순서대로 클리어 여부 별의 갯수와 시간 no클리어 0 클리어 1
     int cnt;
+    public Image st1_star1;
+    public Image st1_star2;
+    public Image st1_star3;
+    public Image st2_star1;
+    public Image st2_star2;
+    public Image st2_star3;
+    public Image st1_lock;
+    public Image st2_lock;
+    public Text st1_time;
+    public Text st2_time;
 
     private void Start()
     {
@@ -27,6 +38,41 @@ public class StageSelectController : MonoBehaviour
             cnt++;
         }
         file.Close();
+        if (record[1, 1] == 1) st2_lock.gameObject.SetActive(false);
+        if (record[0, 2] >= 1) st1_star1.gameObject.SetActive(true);
+        if (record[0, 2] >= 2) st1_star2.gameObject.SetActive(true);
+        if (record[0, 2] == 3) st1_star3.gameObject.SetActive(true);
+        if (record[1, 2] >= 1) st2_star1.gameObject.SetActive(true);
+        if (record[1, 2] >= 2) st2_star2.gameObject.SetActive(true);
+        if (record[1, 2] == 3) st2_star3.gameObject.SetActive(true);
+        if(record[0, 3] > 0)
+        {
+            int min = 0, sec = 0;
+            min = record[0, 3] / 60;
+            sec = record[0, 3] % 60;
+            if (min < 10 && sec < 10)
+                st1_time.text = "0" + min + " : 0" + sec;
+            else if (min >= 10 && sec < 10)
+                st1_time.text = min + " : 0" + sec;
+            else if (min < 10 && sec >= 10)
+                st1_time.text = "0" + min + " : " + sec;
+            else
+                st1_time.text = min + " : " + sec;
+        }
+        if (record[1, 3] > 0)
+        {
+            int min = 0, sec = 0;
+            min = record[1, 3] / 60;
+            sec = record[1, 3] % 60;
+            if (min < 10 && sec < 10)
+                st2_time.text = "0" + min + " : 0" + sec;
+            else if (min >= 10 && sec < 10)
+                st2_time.text = min + " : 0" + sec;
+            else if (min < 10 && sec >= 10)
+                st2_time.text = "0" + min + " : " + sec;
+            else
+                st2_time.text = min + " : " + sec;
+        }
     }
 
     // Update is called once per frame
