@@ -8487,6 +8487,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8050412488738509855, guid: ee1be2965dfce4909b1a29dbfbe034f9,
+        type: 3}
+      propertyPath: m_Name
+      value: Rocket_BG
+      objectReference: {fileID: 0}
     - target: {fileID: 565608087162949173, guid: ee1be2965dfce4909b1a29dbfbe034f9,
         type: 3}
       propertyPath: m_Convex
@@ -8496,11 +8501,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8050412488738509855, guid: ee1be2965dfce4909b1a29dbfbe034f9,
-        type: 3}
-      propertyPath: m_Name
-      value: Rocket_BG
       objectReference: {fileID: 0}
     - target: {fileID: 6477186000252986892, guid: ee1be2965dfce4909b1a29dbfbe034f9,
         type: 3}
