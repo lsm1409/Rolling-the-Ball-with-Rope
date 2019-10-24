@@ -59,13 +59,13 @@ public class StageSelectController : MonoBehaviour
             min = record[0, 3] / 60;
             sec = record[0, 3] % 60;
             if (min < 10 && sec < 10)
-                st0_time.text = "0" + min + " : 0" + sec;
+                st0_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st0_time.text = min + " : 0" + sec;
+                st0_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st0_time.text = "0" + min + " : " + sec;
+                st0_time.text = "0" + min + ":" + sec;
             else
-                st0_time.text = min + " : " + sec;
+                st0_time.text = min + ":" + sec;
         }
         if (record[1, 3] > 0)
         {
@@ -73,13 +73,13 @@ public class StageSelectController : MonoBehaviour
             min = record[1, 3] / 60;
             sec = record[1, 3] % 60;
             if (min < 10 && sec < 10)
-                st1_time.text = "0" + min + " : 0" + sec;
+                st1_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st1_time.text = min + " : 0" + sec;
+                st1_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st1_time.text = "0" + min + " : " + sec;
+                st1_time.text = "0" + min + ":" + sec;
             else
-                st1_time.text = min + " : " + sec;
+                st1_time.text = min + ":" + sec;
         }
         if (record[2, 3] > 0)
         {
@@ -87,13 +87,13 @@ public class StageSelectController : MonoBehaviour
             min = record[1, 3] / 60;
             sec = record[1, 3] % 60;
             if (min < 10 && sec < 10)
-                st2_time.text = "0" + min + " : 0" + sec;
+                st2_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st2_time.text = min + " : 0" + sec;
+                st2_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st2_time.text = "0" + min + " : " + sec;
+                st2_time.text = "0" + min + ":" + sec;
             else
-                st2_time.text = min + " : " + sec;
+                st2_time.text = min + ":" + sec;
         }
     }
 

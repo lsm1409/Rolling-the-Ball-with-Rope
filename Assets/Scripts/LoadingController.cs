@@ -60,7 +60,6 @@ public class LoadingController : MonoBehaviour
     public static string nextScene;
 
     [SerializeField]
-    Image progressBar;
 
     private void Start()
     {
@@ -87,22 +86,6 @@ public class LoadingController : MonoBehaviour
             yield return null;
 
             timer += Time.deltaTime;
-
-            if (op.progress >= 0.9f)
-            {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-
-                if (progressBar.fillAmount == 1.0f)
-                    op.allowSceneActivation = true;
-            }
-            else
-            {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);
-                if (progressBar.fillAmount >= op.progress)
-                {
-                    timer = 0f;
-                }
-            }
         }
     }
 }
