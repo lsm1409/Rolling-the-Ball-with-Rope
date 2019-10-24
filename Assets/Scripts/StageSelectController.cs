@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class StageSelectController : MonoBehaviour
 {
-
     private int stageNumber = 0;
     static string path = "Assets/data/player.txt";
     string line, temp;
