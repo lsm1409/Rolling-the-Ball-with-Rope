@@ -155,6 +155,7 @@ public class PlayerController : MonoBehaviour
             // -- 로프 발사 -- //
             if (isRopeShot && canRopeSet)
             {
+                this.GetComponent<AudioSource>().Play();
                 // ... Raycasting하여 닿은 물체의 정보가 ropeHit에 저장된다. 여기서 Ray가 로프라고 보면 된다.
                 // ... 로프에 매달리는 효과를 내기 위해 HingeJoint 컴포넌트를 스크립트 상에서 동적 생성한다.
                 rope = this.gameObject.AddComponent<HingeJoint>(); // HingeJoint 컴포넌트를 추가하고 그 컴포넌트를 반환받아 객체 rope에 저장한다. rope를 이용해 컴포넌트에 접근/설정 한다.
