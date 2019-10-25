@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
                 for (int i = 0; i < 3; i++)
                     sw.WriteLine(lines[i]);
                 sw.Close();
-
+                StageSelectController.recordUpdate();
                 UIController.GameOver = true;
                 break;
             case "FreezeAll":

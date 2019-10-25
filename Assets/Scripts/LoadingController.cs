@@ -22,7 +22,7 @@ public class LoadingController : MonoBehaviour
         yield return null;
 
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
+        //op.allowSceneActivation = false;
 
         while (!op.isDone)
         {

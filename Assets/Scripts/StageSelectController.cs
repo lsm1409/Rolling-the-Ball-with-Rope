@@ -5,9 +5,9 @@ public class StageSelectController : MonoBehaviour
 {
     private int stageNumber = 0;
     static string path = "Assets/data/player.txt";
-    string line, temp;
+    static string line, temp;
     static int[,] record = new int[3, 4]; //순서대로 클리어 여부 별의 갯수와 시간 no클리어 0 클리어 1
-    int cnt;
+    static int cnt;
     public Image st0_star1;
     public Image st0_star2;
     public Image st0_star3;
@@ -24,7 +24,8 @@ public class StageSelectController : MonoBehaviour
     public Text st1_time;
     public Text st2_time;
 
-    private void Start()
+
+    public static void recordUpdate()
     {
         System.IO.StreamReader file = new System.IO.StreamReader(@path);
         cnt = 0;
@@ -39,6 +40,11 @@ public class StageSelectController : MonoBehaviour
             cnt++;
         }
         file.Close();
+    }
+
+    private void Start()
+    {
+        recordUpdate();
         if (record[0, 1] == 1) st1_lock.gameObject.SetActive(false);
         if (record[1, 1] == 1) st2_lock.gameObject.SetActive(false);
         if (record[0, 2] >= 1) st0_star1.gameObject.SetActive(true);
@@ -120,13 +126,11 @@ public class StageSelectController : MonoBehaviour
 
     public static int getCoin(int i)
     {
-        Debug.Log(record[i, 2]);
         return record[i, 2];
     }
 
     public static int getTime(int i)
     {
-        Debug.Log(record[i, 3]);
         return record[i, 3];
     }
 
