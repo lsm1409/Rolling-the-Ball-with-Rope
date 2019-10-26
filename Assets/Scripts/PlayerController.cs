@@ -239,7 +239,8 @@ public class PlayerController : MonoBehaviour
                 string line, temp;
                 string[] lines = new string[3];
                 int cnt = 0, time = (int)UIController.time;
-                string path = "Assets/data/player.txt";
+                //string path = "Assets/data/player.txt";
+                string path = AppDirector.path + "/data/player.txt";
                 int sceneNum = 10;
                 if (SceneManager.GetActiveScene().name == "Stage#0") sceneNum = 0;
                 else if (SceneManager.GetActiveScene().name == "Stage#1") sceneNum = 1;
@@ -247,8 +248,10 @@ public class PlayerController : MonoBehaviour
                 System.IO.StreamReader file = new System.IO.StreamReader(@path);
                 while ((line = file.ReadLine()) != null)
                 {
+                   // Debug.Log(line);
                     temp = line.Substring(0, 1);
-                    if(int.Parse(temp) == sceneNum)
+                    //Debug.Log(temp);
+                    if(int.Parse(temp) - 1== sceneNum)
                     {
                         if (coinCount > StageSelectController.getCoin(cnt))
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
@@ -261,6 +264,7 @@ public class PlayerController : MonoBehaviour
                     {
                         lines[cnt] = line;
                     }
+                    //Debug.Log(lines[cnt]);
                     cnt++;
                 }
                 file.Close();

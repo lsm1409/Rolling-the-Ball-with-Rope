@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class StageSelectController : MonoBehaviour
 {
     private int stageNumber = 0;
-    static string path = "Assets/data/player.txt";
+    //static string path = "Assets/data/player.txt";
+    static string path = AppDirector.path + "/data/player.txt";
     static string line, temp;
     static int[,] record = new int[3, 4]; //순서대로 클리어 여부 별의 갯수와 시간 no클리어 0 클리어 1
     static int cnt;
