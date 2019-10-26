@@ -37,9 +37,9 @@ public class AppDirector : MonoBehaviour
         if (!File.Exists(path + "/data/player.txt"))
         {
             StreamWriter textWrite = File.CreateText(path + "/data/player.txt");
+            textWrite.WriteLine("0000");
             textWrite.WriteLine("1000");
             textWrite.WriteLine("2000");
-            textWrite.WriteLine("3000");
             textWrite.Dispose();
             Debug.Log("파일 생성 : " + path);
         }

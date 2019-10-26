@@ -248,10 +248,8 @@ public class PlayerController : MonoBehaviour
                 System.IO.StreamReader file = new System.IO.StreamReader(@path);
                 while ((line = file.ReadLine()) != null)
                 {
-                   // Debug.Log(line);
                     temp = line.Substring(0, 1);
-                    //Debug.Log(temp);
-                    if(int.Parse(temp) - 1== sceneNum)
+                    if(int.Parse(temp) == sceneNum)
                     {
                         if (coinCount > StageSelectController.getCoin(cnt))
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
