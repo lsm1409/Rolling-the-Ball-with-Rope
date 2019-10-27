@@ -130,6 +130,8 @@ MonoBehaviour:
   MaxAngularVelocity: 26
   GroundRayLength: 1
   MaxRopeLength: 25
+  jump_sound: {fileID: 8300000, guid: ec03f2944a7b82e47b50ab5920a6bec9, type: 3}
+  rope_sound: {fileID: 8300000, guid: 2100bb3b93969dc47a2e5e5cb5ef9ceb, type: 3}
 --- !u!120 &3401630416951006585
 LineRenderer:
   m_ObjectHideFlags: 0

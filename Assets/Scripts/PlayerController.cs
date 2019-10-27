@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public float MaxAngularVelocity; // 공의 최고 각속도 (공이 공 중심 기준으로 회전하는 최고 속도)
     public float GroundRayLength; // 공이 땅에 붙어있는지 체크하기 위해 공 중심으로부터 -y방향으로 재는 거리
     public float MaxRopeLength; // 로프가 발사되는 최대 길이
+    public AudioClip jump_sound;
+    public AudioClip rope_sound;
 
     private new Rigidbody rigidbody;   // 공의 rigidbody 컴포넌트를 담는 필드
     private LineRenderer line; // 로프를 표현하는 LineRenderer 컴포넌트를 담는 필드
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
     private HingeJoint rope;   // 로프의 joint 정보 (로프가 걸리는 위치, 로프의 길이, 진자 운동 방향, 진자 운동 각도 등)
     private Texture dottedLine;    // 로프의 점선 텍스쳐
     private Vector3 moveDirectionKey;
+    private bool onGroundLastFrame = false;
+    private bool onGround;
 
     public bool IsConnected { get; private set; }   // 공이 로프와 연결되면 true
 
@@ -85,7 +89,19 @@ public class PlayerController : MonoBehaviour
                 // ... +y 방향으로 순간적인 힘을 가한다.
                 rigidbody.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
             }
+            onGround = true;
         }
+        else
+        {
+            onGround = false;
+        }
+        if(onGround == true && onGroundLastFrame == false)
+        {
+            this.GetComponent<AudioSource>().clip = jump_sound;
+            this.GetComponent<AudioSource>().volume = 0.5f;
+            this.GetComponent<AudioSource>().Play();
+        }
+        onGroundLastFrame = onGround;
 
         // -- 로프 연결 상태 --
         if (IsConnected)
@@ -155,6 +171,8 @@ public class PlayerController : MonoBehaviour
             // -- 로프 발사 -- //
             if (isRopeShot && canRopeSet)
             {
+                this.GetComponent<AudioSource>().clip = rope_sound;
+                this.GetComponent<AudioSource>().volume = 1.0f;
                 this.GetComponent<AudioSource>().Play();
                 // ... Raycasting하여 닿은 물체의 정보가 ropeHit에 저장된다. 여기서 Ray가 로프라고 보면 된다.
                 // ... 로프에 매달리는 효과를 내기 위해 HingeJoint 컴포넌트를 스크립트 상에서 동적 생성한다.
@@ -239,7 +257,6 @@ public class PlayerController : MonoBehaviour
                 string line, temp;
                 string[] lines = new string[3];
                 int cnt = 0, time = (int)UIController.time;
-                //string path = "Assets/data/player.txt";
                 string path = AppDirector.path + "/data/player.txt";
                 int sceneNum = 10;
                 if (SceneManager.GetActiveScene().name == "Stage#0") sceneNum = 0;
@@ -262,7 +279,6 @@ public class PlayerController : MonoBehaviour
                     {
                         lines[cnt] = line;
                     }
-                    //Debug.Log(lines[cnt]);
                     cnt++;
                 }
                 file.Close();
