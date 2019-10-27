@@ -26,6 +26,7 @@ TagManager:
   - BoostZone
   - CameraBackward
   - CameraForward
+  - FreezeNone
   layers:
   - Default
   - TransparentFX
