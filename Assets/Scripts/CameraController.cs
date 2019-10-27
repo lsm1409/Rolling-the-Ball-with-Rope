@@ -47,6 +47,7 @@ public class CameraController : MonoBehaviour
         }
         //else if (UIController.GameOver)
         //{
+        //    죽었을 때 카메라 회전
         //    transform.RotateAround(Player.transform.position, Vector3.up, 90 * Time.deltaTime);
         //}
         else

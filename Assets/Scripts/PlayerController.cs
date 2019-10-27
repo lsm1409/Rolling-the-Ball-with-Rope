@@ -239,7 +239,8 @@ public class PlayerController : MonoBehaviour
                 string line, temp;
                 string[] lines = new string[3];
                 int cnt = 0, time = (int)UIController.time;
-                string path = "Assets/data/player.txt";
+                //string path = "Assets/data/player.txt";
+                string path = AppDirector.path + "/data/player.txt";
                 int sceneNum = 10;
                 if (SceneManager.GetActiveScene().name == "Stage#0") sceneNum = 0;
                 else if (SceneManager.GetActiveScene().name == "Stage#1") sceneNum = 1;
@@ -261,6 +262,7 @@ public class PlayerController : MonoBehaviour
                     {
                         lines[cnt] = line;
                     }
+                    //Debug.Log(lines[cnt]);
                     cnt++;
                 }
                 file.Close();
@@ -268,7 +270,7 @@ public class PlayerController : MonoBehaviour
                 for (int i = 0; i < 3; i++)
                     sw.WriteLine(lines[i]);
                 sw.Close();
-
+                StageSelectController.recordUpdate();
                 UIController.GameOver = true;
                 break;
             case "FreezeAll":

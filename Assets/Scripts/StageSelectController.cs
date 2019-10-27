@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class StageSelectController : MonoBehaviour
 {
-
     private int stageNumber = 0;
-    static string path = "Assets/data/player.txt";
-    string line, temp;
+    //static string path = "Assets/data/player.txt";
+    static string path = AppDirector.path + "/data/player.txt";
+    static string line, temp;
     static int[,] record = new int[3, 4]; //순서대로 클리어 여부 별의 갯수와 시간 no클리어 0 클리어 1
-    int cnt;
+    static int cnt;
     public Image st0_star1;
     public Image st0_star2;
     public Image st0_star3;
@@ -27,7 +25,8 @@ public class StageSelectController : MonoBehaviour
     public Text st1_time;
     public Text st2_time;
 
-    private void Start()
+
+    public static void recordUpdate()
     {
         System.IO.StreamReader file = new System.IO.StreamReader(@path);
         cnt = 0;
@@ -42,6 +41,11 @@ public class StageSelectController : MonoBehaviour
             cnt++;
         }
         file.Close();
+    }
+
+    private void Start()
+    {
+        recordUpdate();
         if (record[0, 1] == 1) st1_lock.gameObject.SetActive(false);
         if (record[1, 1] == 1) st2_lock.gameObject.SetActive(false);
         if (record[0, 2] >= 1) st0_star1.gameObject.SetActive(true);
@@ -59,13 +63,13 @@ public class StageSelectController : MonoBehaviour
             min = record[0, 3] / 60;
             sec = record[0, 3] % 60;
             if (min < 10 && sec < 10)
-                st0_time.text = "0" + min + " : 0" + sec;
+                st0_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st0_time.text = min + " : 0" + sec;
+                st0_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st0_time.text = "0" + min + " : " + sec;
+                st0_time.text = "0" + min + ":" + sec;
             else
-                st0_time.text = min + " : " + sec;
+                st0_time.text = min + ":" + sec;
         }
         if (record[1, 3] > 0)
         {
@@ -73,13 +77,13 @@ public class StageSelectController : MonoBehaviour
             min = record[1, 3] / 60;
             sec = record[1, 3] % 60;
             if (min < 10 && sec < 10)
-                st1_time.text = "0" + min + " : 0" + sec;
+                st1_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st1_time.text = min + " : 0" + sec;
+                st1_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st1_time.text = "0" + min + " : " + sec;
+                st1_time.text = "0" + min + ":" + sec;
             else
-                st1_time.text = min + " : " + sec;
+                st1_time.text = min + ":" + sec;
         }
         if (record[2, 3] > 0)
         {
@@ -87,13 +91,13 @@ public class StageSelectController : MonoBehaviour
             min = record[1, 3] / 60;
             sec = record[1, 3] % 60;
             if (min < 10 && sec < 10)
-                st2_time.text = "0" + min + " : 0" + sec;
+                st2_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
-                st2_time.text = min + " : 0" + sec;
+                st2_time.text = min + ":0" + sec;
             else if (min < 10 && sec >= 10)
-                st2_time.text = "0" + min + " : " + sec;
+                st2_time.text = "0" + min + ":" + sec;
             else
-                st2_time.text = min + " : " + sec;
+                st2_time.text = min + ":" + sec;
         }
     }
 
@@ -123,13 +127,11 @@ public class StageSelectController : MonoBehaviour
 
     public static int getCoin(int i)
     {
-        Debug.Log(record[i, 2]);
         return record[i, 2];
     }
 
     public static int getTime(int i)
     {
-        Debug.Log(record[i, 3]);
         return record[i, 3];
     }
 
