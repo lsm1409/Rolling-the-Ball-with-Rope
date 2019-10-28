@@ -284,7 +284,6 @@ public class PlayerController : MonoBehaviour
                     cnt++;
                 }
                 file.Close();
-                Debug.Log(lines[2]);
                 StreamWriter sw = new StreamWriter(@path, false);
                 for (int i = 0; i < 3; i++)
                     sw.WriteLine(lines[i]);
@@ -335,10 +334,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case "JumpZone":
                 rigidbody.AddForce(Vector3.up * JumpPower * 20, ForceMode.Impulse);
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "BoostZone":
                 rigidbody.AddForce(rigidbody.velocity.normalized * 10, ForceMode.Impulse);
                 Debug.Log("true");
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "CameraBackward":
                 CameraController.isCameraGoingBackward = true;
