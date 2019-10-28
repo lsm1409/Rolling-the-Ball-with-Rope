@@ -221,10 +221,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+
         // -- 공의 사망 -- //
         // 공이 압사하거나 추락사하면 지정된 리스폰 포인트에서 부활
-        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
+        /*if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
+        {
+            transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }*/
+        if (this.transform.position.y < -10)
         {
             transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
             rigidbody.velocity = Vector3.zero;
