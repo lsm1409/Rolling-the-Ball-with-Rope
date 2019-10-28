@@ -221,10 +221,16 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+
         // -- 공의 사망 -- //
         // 공이 압사하거나 추락사하면 지정된 리스폰 포인트에서 부활
-        if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
+        /*if (Physics.Raycast(this.transform.position, Vector3.up, out RaycastHit hit, 0.35f) || this.transform.position.y < -10)
+        {
+            transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }*/
+        if (this.transform.position.y < -10)
         {
             transform.position = GameObject.FindWithTag("Respawn" + GameDirector.RespawnPoint.ToString()).transform.position;
             rigidbody.velocity = Vector3.zero;
@@ -271,6 +277,8 @@ public class PlayerController : MonoBehaviour
                         if (coinCount > StageSelectController.getCoin(cnt))
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
                         else if(time < StageSelectController.getTime(cnt) && coinCount == StageSelectController.getCoin(cnt))
+                            lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
+                        else if(coinCount == 0 && StageSelectController.getCoin(cnt) == 0)
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
                         else
                             lines[cnt] = line;
@@ -332,16 +340,24 @@ public class PlayerController : MonoBehaviour
                 break;
             case "JumpZone":
                 rigidbody.AddForce(Vector3.up * JumpPower * 20, ForceMode.Impulse);
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "BoostZone":
                 rigidbody.AddForce(rigidbody.velocity.normalized * 10, ForceMode.Impulse);
                 Debug.Log("true");
+                other.GetComponent<AudioSource>().Play();
                 break;
             case "CameraBackward":
                 CameraController.isCameraGoingBackward = true;
                 break;
             case "CameraForward":
                 CameraController.isCameraGoingBackward = false;
+                break;
+            case "switch":
+                Vector3 pos = other.transform.position;
+                pos.y -= 0.45f;
+                other.transform.position = pos;
+                other.GetComponent<AudioSource>().Play();
                 break;
         }
 

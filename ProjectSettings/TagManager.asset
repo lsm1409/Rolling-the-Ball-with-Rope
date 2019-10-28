@@ -27,6 +27,7 @@ TagManager:
   - CameraBackward
   - CameraForward
   - FreezeNone
+  - switch
   layers:
   - Default
   - TransparentFX

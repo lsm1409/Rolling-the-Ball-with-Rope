@@ -88,8 +88,8 @@ public class StageSelectController : MonoBehaviour
         if (record[2, 3] > 0)
         {
             int min = 0, sec = 0;
-            min = record[1, 3] / 60;
-            sec = record[1, 3] % 60;
+            sec = record[2, 3] % 60;
+            min = record[2, 3] / 60;
             if (min < 10 && sec < 10)
                 st2_time.text = "0" + min + ":0" + sec;
             else if (min >= 10 && sec < 10)
