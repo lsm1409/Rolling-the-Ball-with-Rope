@@ -353,6 +353,12 @@ public class PlayerController : MonoBehaviour
             case "CameraForward":
                 CameraController.isCameraGoingBackward = false;
                 break;
+            case "switch":
+                Vector3 pos = other.transform.position;
+                pos.y -= 0.45f;
+                other.transform.position = pos;
+                other.GetComponent<AudioSource>().Play();
+                break;
         }
 
         // 리스폰 포인트 갱신
