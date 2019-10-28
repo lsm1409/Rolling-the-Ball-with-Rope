@@ -272,6 +272,8 @@ public class PlayerController : MonoBehaviour
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
                         else if(time < StageSelectController.getTime(cnt) && coinCount == StageSelectController.getCoin(cnt))
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
+                        else if(coinCount == 0 && StageSelectController.getCoin(cnt) == 0)
+                            lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
                         else
                             lines[cnt] = line;
                     }
@@ -282,6 +284,7 @@ public class PlayerController : MonoBehaviour
                     cnt++;
                 }
                 file.Close();
+                Debug.Log(lines[2]);
                 StreamWriter sw = new StreamWriter(@path, false);
                 for (int i = 0; i < 3; i++)
                     sw.WriteLine(lines[i]);
