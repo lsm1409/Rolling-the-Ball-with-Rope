@@ -381,6 +381,7 @@ public class PlayerController : MonoBehaviour
         // 리스폰 포인트 갱신
         if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
         {
+            other.GetComponent<AudioSource>().Play();
             GameDirector.RespawnPoint++;
         }
     }

@@ -18,7 +18,7 @@ public class GameDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RespawnPoint = 0;
+        RespawnPoint = -1;
 
     }
 
