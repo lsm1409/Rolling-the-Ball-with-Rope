@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Finish":
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-                string line, temp;
+                string dataLine, temp;
                 string[] lines = new string[3];
                 int cnt = 0, time = (int)UIController.time;
                 string path = AppDirector.path + "/data/player.txt";
@@ -269,9 +269,9 @@ public class PlayerController : MonoBehaviour
                 else if (SceneManager.GetActiveScene().name == "Stage#1") sceneNum = 1;
                 else if (SceneManager.GetActiveScene().name == "Stage#2") sceneNum = 2;
                 System.IO.StreamReader file = new System.IO.StreamReader(@path);
-                while ((line = file.ReadLine()) != null)
+                while ((dataLine = file.ReadLine()) != null)
                 {
-                    temp = line.Substring(0, 1);
+                    temp = dataLine.Substring(0, 1);
                     if(int.Parse(temp) == sceneNum)
                     {
                         if (coinCount > StageSelectController.getCoin(cnt))
@@ -281,11 +281,11 @@ public class PlayerController : MonoBehaviour
                         else if(coinCount == 0 && StageSelectController.getCoin(cnt) == 0)
                             lines[cnt] = sceneNum.ToString() + 1.ToString() + coinCount.ToString() + time.ToString();
                         else
-                            lines[cnt] = line;
+                            lines[cnt] = dataLine;
                     }
                     else
                     {
-                        lines[cnt] = line;
+                        lines[cnt] = dataLine;
                     }
                     cnt++;
                 }
