@@ -31,7 +31,6 @@ public class AppDirector : MonoBehaviour
         if (!Directory.Exists(path + "/data"))
         {
             Directory.CreateDirectory(path + "/data");
-            Debug.Log("폴더 생성 : " + path);
         }
         //파일이 없다면 생성
         if (!File.Exists(path + "/data/player.txt"))
@@ -41,7 +40,6 @@ public class AppDirector : MonoBehaviour
             textWrite.WriteLine("1000");
             textWrite.WriteLine("2000");
             textWrite.Dispose();
-            Debug.Log("파일 생성 : " + path);
         }
     }
 }

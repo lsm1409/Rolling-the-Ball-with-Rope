@@ -20,6 +20,7 @@ public class DoorController : MonoBehaviour
         {
             StartCoroutine(Rotate(Vector3.forward * rotationAngle, 2.0f));
             GameDirector.doors[doorNum] = true;
+            this.GetComponent<AudioSource>().Play();
         }
     }
 

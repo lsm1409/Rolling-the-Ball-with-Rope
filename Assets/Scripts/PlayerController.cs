@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         // -- 공 이동 및 점프 -- //
         // 공에서 -y 방향으로 Raycasting하여 공이 땅에 붙어있다고 판단될 경우 ...
-        if (Physics.Raycast(this.transform.position, Vector3.down, GroundRayLength))
+        if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit_ground, GroundRayLength))
         {
             // 최대 제한 속도 안에서 ...
             if (rigidbody.velocity.magnitude <= MaxVelocity)
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         {
             onGround = false;
         }
-        if(onGround == true && onGroundLastFrame == false)
+        if (onGround == true && onGroundLastFrame == false && hit_ground.transform.tag.Equals("DropZone") == false)
         {
             this.GetComponent<AudioSource>().clip = jump_sound;
             this.GetComponent<AudioSource>().volume = 0.5f;
@@ -115,9 +115,16 @@ public class PlayerController : MonoBehaviour
             line.endWidth = 0.25f; // 선의 끝 지점 두께
             line.startColor = new Color(0, 0, 0.2f);   // 선의 시작 지점 색
             line.endColor = new Color(0, 0, 0.2f);     // 선의 끝 지점 색
-
-            rope.anchor = Vector3.Lerp(rope.anchor, new Vector3(0, 0, 0), Time.deltaTime);    // anchor 값을 조정하여 로프가 시간에 따라 서서히 줄어들게 한다. (Lerp를 이용해서 기존 anchor -> (0, 0, 0) 으로)
-
+            float posx_ball = this.transform.position.x;
+            float posy_ball = this.transform.position.y;
+            float posz_ball = this.transform.position.z;
+            float posx_rope = rope.connectedBody.transform.TransformPoint(rope.connectedAnchor).x;
+            float posy_rope = rope.connectedBody.transform.TransformPoint(rope.connectedAnchor).y;
+            float posz_rope = rope.connectedBody.transform.TransformPoint(rope.connectedAnchor).z;
+            float dis = Mathf.Sqrt(Mathf.Pow(posx_ball - posx_rope, 2) + Mathf.Pow(posy_ball - posy_rope, 2) + Mathf.Pow(posz_ball - posz_rope, 2));
+            if(dis >= 0.53)
+                rope.anchor = Vector3.Lerp(rope.anchor, new Vector3(0, 0, 0), Time.deltaTime);    // anchor 값을 조정하여 로프가 시간에 따라 서서히 줄어들게 한다. (Lerp를 이용해서 기존 anchor -> (0, 0, 0) 으로)
+            
             // -- 로프 연결 상태에서 점프 입력 --
             if (isJumpPressed)
             {
@@ -344,7 +351,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "BoostZone":
                 rigidbody.AddForce(rigidbody.velocity.normalized * 10, ForceMode.Impulse);
-                Debug.Log("true");
                 other.GetComponent<AudioSource>().Play();
                 break;
             case "CameraBackward":
