@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SwitchController : MonoBehaviour
 {
+    public int switchNum;
+
     private bool isClicked;
     // Start is called before the first frame update
     void Start()
@@ -14,7 +16,10 @@ public class SwitchController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isClicked)
+        {
+            GameDirector.switches[switchNum] = true;
+        }
     }
     public bool getClick()
     {

@@ -18,7 +18,7 @@ public class DoorController : MonoBehaviour
     {
         if (GameDirector.switches[switchNum] && !GameDirector.doors[doorNum])
         {
-            StartCoroutine(Rotate(Vector3.forward * 90, 2.0f));
+            StartCoroutine(Rotate(Vector3.forward * rotationAngle, 2.0f));
             GameDirector.doors[doorNum] = true;
         }
     }
