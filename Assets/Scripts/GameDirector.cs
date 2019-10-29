@@ -10,6 +10,7 @@ public class GameDirector : MonoBehaviour
 {
     public static int RespawnPoint;     // 리스폰
     public static bool isPaused;        // 게임 일시정지
+    public static bool[] switches = new bool[3];
 
     // Start is called before the first frame update
     void Start()
