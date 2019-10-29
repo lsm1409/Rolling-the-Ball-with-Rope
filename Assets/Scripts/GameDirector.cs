@@ -10,13 +10,15 @@ public class GameDirector : MonoBehaviour
 {
     public static int RespawnPoint;     // 리스폰
     public static bool isPaused;        // 게임 일시정지
-    public static bool[] switches = new bool[3];
+
     public static bool[] doors = new bool[3];
+    public static GameObject[] Switch = new GameObject[3];
 
     // Start is called before the first frame update
     void Start()
     {
         RespawnPoint = 0;
+        //Switch[0].GetComponent<SwitchController>().getClick();
     }
 
     // Update is called once per frame

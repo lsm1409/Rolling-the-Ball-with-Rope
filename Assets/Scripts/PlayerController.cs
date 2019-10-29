@@ -354,10 +354,14 @@ public class PlayerController : MonoBehaviour
                 CameraController.isCameraGoingBackward = false;
                 break;
             case "switch":
-                Vector3 pos = other.transform.position;
-                pos.y -= 0.45f;
-                other.transform.position = pos;
-                other.GetComponent<AudioSource>().Play();
+                if (!other.GetComponent<SwitchController>().getClick())
+                {
+                    Vector3 pos = other.transform.position;
+                    pos.y -= 0.45f;
+                    other.transform.position = pos;
+                    other.GetComponent<AudioSource>().Play();
+                    other.GetComponent<SwitchController>().setClick(true);
+                }
                 break;
         }
 
