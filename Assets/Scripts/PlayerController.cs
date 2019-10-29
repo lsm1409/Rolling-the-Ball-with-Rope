@@ -363,12 +363,9 @@ public class PlayerController : MonoBehaviour
                     other.GetComponent<SwitchController>().setClick(true);
                 }
                 break;
-        }
-
-        // 리스폰 포인트 갱신
-        if (other.gameObject.tag == "Respawn" + (GameDirector.RespawnPoint + 1).ToString())
-        {
-            GameDirector.RespawnPoint++;
+            case "DropZone":
+                GameDirector.isDrop = true;
+                break;
         }
 
         // 리스폰 포인트 갱신

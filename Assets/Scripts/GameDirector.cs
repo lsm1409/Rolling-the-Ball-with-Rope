@@ -10,6 +10,7 @@ public class GameDirector : MonoBehaviour
 {
     public static int RespawnPoint;     // 리스폰
     public static bool isPaused;        // 게임 일시정지
+    public static bool isDrop;
 
     public static bool[] doors = new bool[3];
     public static bool[] switches = new bool[3];
@@ -18,7 +19,7 @@ public class GameDirector : MonoBehaviour
     void Start()
     {
         RespawnPoint = 0;
-        //Switch[0].GetComponent<SwitchController>().getClick();
+
     }
 
     // Update is called once per frame
@@ -28,5 +29,10 @@ public class GameDirector : MonoBehaviour
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+
+        if (isDrop)
+        {
+            GameObject.FindWithTag("DropZone").transform.parent.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 }
