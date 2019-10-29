@@ -18,7 +18,7 @@ public class DoorController : MonoBehaviour
     {
         if (GameDirector.switches[switchNum] && !GameDirector.doors[doorNum])
         {
-            StartCoroutine(Rotate(Vector3.forward * rotationAngle, 2.0f));
+            StartCoroutine(Rotate(Vector3.forward * rotationAngle, 2.7f));
             GameDirector.doors[doorNum] = true;
             this.GetComponent<AudioSource>().Play();
         }
