@@ -132,6 +132,10 @@ public class PlayerController : MonoBehaviour
                 IsConnected = false;
                 Destroy(rope);
             }
+
+            // -- 블록 드랍을 위해
+            if (rope.connectedBody.CompareTag("DropZone"))
+                Invoke("DropBlock", 0.8f);
         }
         // -- 로프 비연결 상태 --
         else
@@ -370,7 +374,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case "DropZone":
-                GameDirector.isDrop = true;
+                DropBlock();
                 break;
         }
 
@@ -379,5 +383,10 @@ public class PlayerController : MonoBehaviour
         {
             GameDirector.RespawnPoint++;
         }
+    }
+
+    private void DropBlock()
+    {
+        GameDirector.isDrop = true;
     }
 }
