@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
             // -- 블록 드랍을 위해
             if (rope.connectedBody.CompareTag("DropZone"))
-                Invoke("DropBlock", 0.8f);
+                Invoke("DropBlock", 0.3f);
         }
         // -- 로프 비연결 상태 --
         else
