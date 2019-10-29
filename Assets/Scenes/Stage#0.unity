@@ -1588,7 +1588,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0.15625, z: 0.02734375, w: -0.0390625}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6160,6 +6160,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5cd29a93d7ae2d488fa0376d0d08462, type: 3}
+--- !u!224 &868958985 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3932319763326031458, guid: 76e202d29af1b478a9069e10812c9dd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3932319763726916987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &875344361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7308,7 +7314,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 5, z: 5}
+  m_Size: {x: 5, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1059322953 stripped
 Transform:
@@ -8864,6 +8870,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 736d23d832d564c42a6b81c9fefb19bb, type: 3}
+--- !u!224 &1253834625 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3932319764918421030, guid: 76e202d29af1b478a9069e10812c9dd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3932319763726916987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1256754121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16706,6 +16718,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1515173448}
+    - target: {fileID: 3932319764312022215, guid: 76e202d29af1b478a9069e10812c9dd3,
+        type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 868958985}
+    - target: {fileID: 3932319764312022215, guid: 76e202d29af1b478a9069e10812c9dd3,
+        type: 3}
+      propertyPath: handle
+      value: 
+      objectReference: {fileID: 1253834625}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76e202d29af1b478a9069e10812c9dd3, type: 3}
 --- !u!1001 &3956109366263949620
