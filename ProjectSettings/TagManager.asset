@@ -28,6 +28,7 @@ TagManager:
   - CameraForward
   - FreezeNone
   - switch
+  - DropZone
   layers:
   - Default
   - TransparentFX
