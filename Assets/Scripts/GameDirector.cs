@@ -19,7 +19,7 @@ public class GameDirector : MonoBehaviour
     void Start()
     {
         RespawnPoint = -1;
-
+        isDrop = false;
     }
 
     // Update is called once per frame
