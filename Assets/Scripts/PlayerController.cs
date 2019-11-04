@@ -225,11 +225,23 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
-                    float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
-                    // 계산한 값 이용하여 최소각, 최대각 지정
-                    jointLimits.min = -hitAngle - ropeHit.transform.rotation.z;
-                    jointLimits.max = 180 - hitAngle - ropeHit.transform.rotation.z;
+                    if (ropeHit.normal.y >= 0)
+                    {
+                        // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                        float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
+                        // 계산한 값 이용하여 최소각, 최대각 지정
+                        jointLimits.min = ropeHit.transform.eulerAngles.z - hitAngle - 180;
+                        jointLimits.max = ropeHit.transform.eulerAngles.z - hitAngle;
+                    }
+                    else
+                    {
+                        // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                        float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
+                        // 계산한 값 이용하여 최소각, 최대각 지정
+                        jointLimits.min = ropeHit.transform.eulerAngles.z - hitAngle ;
+                        jointLimits.max = ropeHit.transform.eulerAngles.z + 180 - hitAngle;
+                    }
+
                 }
                 // 값 수정한 jointLimits를 적용하고 각도 제한을 허용한다.
                 rope.limits = jointLimits;
