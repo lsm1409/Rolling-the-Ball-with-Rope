@@ -223,6 +223,14 @@ public class PlayerController : MonoBehaviour
                     jointLimits.min = -hitAngle;
                     jointLimits.max = 180 - hitAngle;
                 }
+                else
+                {
+                    // hitAngle = arccos(공과 로프가 걸린 지점의 x축(가로) 거리 / 공과 로프가 걸린 지점(대각선)의 거리)
+                    float hitAngle = Mathf.Rad2Deg * Mathf.Acos((ropeHit.point.x - this.transform.position.x) / Vector3.Distance(this.transform.position, ropeHit.point));
+                    // 계산한 값 이용하여 최소각, 최대각 지정
+                    jointLimits.min = -hitAngle - ropeHit.transform.rotation.z;
+                    jointLimits.max = 180 - hitAngle - ropeHit.transform.rotation.z;
+                }
                 // 값 수정한 jointLimits를 적용하고 각도 제한을 허용한다.
                 rope.limits = jointLimits;
                 rope.useLimits = true;
