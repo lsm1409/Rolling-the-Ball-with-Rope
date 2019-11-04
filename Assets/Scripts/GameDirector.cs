@@ -20,6 +20,11 @@ public class GameDirector : MonoBehaviour
     {
         RespawnPoint = -1;
         isDrop = false;
+        for(int i = 0; i < 3; i++)
+        {
+            doors[i] = false;
+            switches[i] = false;
+        }
     }
 
     // Update is called once per frame
